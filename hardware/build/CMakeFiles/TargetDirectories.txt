@@ -1,0 +1,14 @@
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/CMakeFiles/edit_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/CMakeFiles/rebuild_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/lgpio/CMakeFiles/lgpio.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/lgpio/CMakeFiles/edit_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/lgpio/CMakeFiles/rebuild_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/lcd/CMakeFiles/lcd.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/lcd/CMakeFiles/edit_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/lcd/CMakeFiles/rebuild_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/hal/CMakeFiles/hal.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/hal/CMakeFiles/edit_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/hal/CMakeFiles/rebuild_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/app/CMakeFiles/music_board.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/app/CMakeFiles/edit_cache.dir
+/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/app/CMakeFiles/rebuild_cache.dir

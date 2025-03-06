@@ -1,0 +1,1 @@
+/usr/bin/cc -fsanitize=address -pthread CMakeFiles/music_board.dir/src/main.c.o -o music_board  ../hal/libhal.a ../lcd/liblcd.a ../lgpio/liblgpio.a -lgpiod 
