@@ -1,0 +1,151 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.18"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "lgpio",
+					"jsonFile" : "directory-lgpio-Debug-54a055dc1346ab7abbd8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.18"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "lgpio",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "lcd",
+					"jsonFile" : "directory-lcd-Debug-4f119b15d58a47143901.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.18"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "lcd",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "hal",
+					"jsonFile" : "directory-hal-Debug-b0ca0e3cac237c9cce65.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.18"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hal",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "app",
+					"jsonFile" : "directory-app-Debug-94c5f210ca04b1028ae5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.18"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "app",
+					"targetIndexes" : 
+					[
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					],
+					"name" : "my_hello_world",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "hal::@ad971efe0e95b39e260f",
+					"jsonFile" : "target-hal-Debug-207a19676af6260543d0.json",
+					"name" : "hal",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "lcd::@7e3a5f612d490599951d",
+					"jsonFile" : "target-lcd-Debug-59e89d2032f28fe03ced.json",
+					"name" : "lcd",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "lgpio::@762d7e374863a3d349e2",
+					"jsonFile" : "target-lgpio-Debug-87dacbc74e8f7c6779f7.json",
+					"name" : "lgpio",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "music_board::@5f5a17c01335469806cb",
+					"jsonFile" : "target-music_board-Debug-92e21f3f14948820971c.json",
+					"name" : "music_board",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/josh/cmpt433/work/Music-BeagleYAI/build",
+		"source" : "/home/josh/cmpt433/work/Music-BeagleYAI/hardware"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

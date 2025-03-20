@@ -1,0 +1,222 @@
+[
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgCtx.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgCtx.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgCtx.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgDbg.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgDbg.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgDbg.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgErr.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgErr.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgErr.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgGpio.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgGpio.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgGpio.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgHdl.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgHdl.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgHdl.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgI2C.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgI2C.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgI2C.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgNotify.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgNotify.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgNotify.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgPthAlerts.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgPthAlerts.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgPthAlerts.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgPthTx.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgPthTx.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgPthTx.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgSerial.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgSerial.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgSerial.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgSPI.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgSPI.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgSPI.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgThread.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgThread.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgThread.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lgpio",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgpio -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lgpio.dir/lgUtil.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgUtil.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/lgUtil.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Config/DEV_Config.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config/DEV_Config.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config/DEV_Config.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font12.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font12.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font12.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font12CN.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font12CN.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font12CN.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font16.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font16.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font16.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font20.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font20.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font20.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font24.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font24.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font24.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font24CN.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font24CN.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font24CN.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font48.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font48.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font48.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font50.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font50.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font50.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/Fonts/font8.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font8.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts/font8.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/GUI/GUI_BMP.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI/GUI_BMP.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI/GUI_BMP.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/GUI/GUI_Paint.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI/GUI_Paint.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI/GUI_Paint.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_0in96.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_0in96.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_0in96.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_1in14.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in14.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in14.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_1in28.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in28.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in28.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_1in3.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in3.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in3.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_1in47.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in47.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in47.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_1in54.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in54.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in54.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_1in69.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in69.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in69.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_1in8.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in8.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in8.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_1in9.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in9.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_1in9.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_2inch.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_2inch.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_2inch.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/lcd",
+  "command": "/usr/bin/c89-gcc -DUSE_DEV_LIB -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/lcd.dir/lib/LCD/LCD_2inch4.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_2inch4.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD/LCD_2inch4.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/hal",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -Wall -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/accelerometer.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/accelerometer.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/accelerometer.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/hal",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -Wall -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/audioMixer.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/audioMixer.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/audioMixer.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/hal",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -Wall -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/gpio.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/gpio.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/gpio.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/hal",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -Wall -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/i2c.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/i2c.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/i2c.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/hal",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -Wall -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/joystick.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/joystick.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/joystick.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/hal",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -Wall -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/periodTimer.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/periodTimer.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/periodTimer.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/hal",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -Wall -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/rotary_encoder.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/rotary_encoder.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/src/rotary_encoder.c"
+},
+{
+  "directory": "/home/josh/cmpt433/work/Music-BeagleYAI/build/app",
+  "command": "/usr/bin/c89-gcc  -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/app/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/hal/include -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Config -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/Fonts -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/GUI -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lcd/lib/LCD -I/home/josh/cmpt433/work/Music-BeagleYAI/hardware/lgpio/. -g -Wall -Wpedantic -Wextra -fdiagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/music_board.dir/src/main.c.o -c /home/josh/cmpt433/work/Music-BeagleYAI/hardware/app/src/main.c",
+  "file": "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/app/src/main.c"
+}
+]

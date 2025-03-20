@@ -14,6 +14,8 @@ pkg_check_modules(GPIOD REQUIRED libgpiod)
 
 # Link libgpiod to the hal library
 target_link_libraries(hal PRIVATE ${GPIOD_LIBRARIES})
+target_link_libraries(hal LINK_PRIVATE lcd)
+target_link_libraries(hal LINK_PRIVATE lgpio)
 
 # Include directories for gpiod
 target_include_directories(hal PRIVATE ${GPIOD_INCLUDE_DIRS})

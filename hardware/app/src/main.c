@@ -1,84 +1,63 @@
+// Main program to build the application
+// Has main(); does initialization and cleanup and perhaps some basic logic.
+
+#include <pthread.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stdbool.h>
 #include <unistd.h>
-#include <arpa/inet.h>
+#include "hal/accelerometer.h"
+#include "hal/gpio.h"
+#include "hal/i2c.h"
+#include "hal/rotary_encoder.h"
+#include "timeFunction.h"
+#include "terminal_output.h"
+#include "hal/periodTimer.h"
+#include "beatboxGenerator.h"
+#include "rotaryEncoderFunctionalities.h"
+#include "hal/audioMixer.h"
+#include "udp_server.h"
+#include "hal/joystick.h"
+#include "joystickFunctionalities.h"
+#include "lcd_draw.h"
 
-#define SERVER_IP "127.0.0.1"  // Server IP address
-#define SERVER_PORT 12345      // Server port
-#define BUFFER_SIZE 4096       // Buffer size for sending data
+int main()
+{
+    printf("Starting Program.\n");
 
-void TCP_client() {
-const char *file_path = "../../wave-files/test.wav";  // Path to the .wav file to send
-    FILE *file;
-    char buffer[BUFFER_SIZE];
-    size_t bytes_read;
+    // Initialize all modules; HAL modules first
+    Period_init();
+    AudioMixer_init();
+    Lcd_draw_init();
+    Gpio_initialize();
+    Rotary_encoder_init();
+    Accelerometer_init();
+    Joystick_init();
+    BeatGenerator_init();
+    JoystickFunction_init();
+    RotaryEncoderFunction_init();
+    TerminalOutput_init();
+    UdpServer_start();
+    
 
-    // Create a socket
-    int client_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (client_socket == -1) {
-        perror("Socket creation failed");
-        exit(EXIT_FAILURE);
+    while(UdpServer_isOnline()) {
+        sleep_for_ms(1000);
     }
 
-    // Define server address
-    struct sockaddr_in server_addr;
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(SERVER_PORT);
-    if (inet_pton(AF_INET, SERVER_IP, &server_addr.sin_addr) <= 0) {
-        perror("Invalid address or address not supported");
-        close(client_socket);
-        exit(EXIT_FAILURE);
-    }
+    printf("Cleaning up modules.\n");
 
-    // Connect to the server
-    if (connect(client_socket, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
-        perror("Connection failed");
-        close(client_socket);
-        exit(EXIT_FAILURE);
-    }
-    printf("Connected to server at %s:%d\n", SERVER_IP, SERVER_PORT);
+    UdpServer_stop();
+    TerminalOutput_cleanup();
+    RotaryEncoderFunction_cleanup();
+    JoystickFunction_cleanup();
+    BeatGenerator_cleanup();
+    Joystick_cleanup();
+    Accelerometer_cleanup();
+    Rotary_encoder_cleanup();
+    Gpio_cleanup();
+    Lcd_draw_cleanup();
+    AudioMixer_cleanup();
+    Period_cleanup();
 
-    // Open the .wav file
-    file = fopen(file_path, "rb");
-    if (!file) {
-        perror("Failed to open file");
-        close(client_socket);
-        exit(EXIT_FAILURE);
-    }
-
-    // Send the file data
-    while ((bytes_read = fread(buffer, 1, BUFFER_SIZE, file)) > 0) {
-        if (send(client_socket, buffer, bytes_read, 0) == -1) {
-            perror("Failed to send file data");
-            fclose(file);
-            close(client_socket);
-            exit(EXIT_FAILURE);
-        }
-    }
-    printf("File sent: %s\n", file_path);
-
-    // Close the file
-    fclose(file);
-
-    // Shutdown the write side of the socket to signal the server that we're done sending data
-    shutdown(client_socket, SHUT_WR);
-
-    // Receive a response from the server
-    char response[1024];
-    ssize_t response_len = recv(client_socket, response, sizeof(response) - 1, 0);
-    if (response_len == -1) {
-        perror("Failed to receive response");
-    } else {
-        response[response_len] = '\0';  // Null-terminate the response
-        printf("Server response: %s\n", response);
-    }
-
-    // Close the socket
-    close(client_socket);
-}
-
-int main() {
-    TCP_client();
+    printf("Program completely successfully.\n");
     return 0;
 }
