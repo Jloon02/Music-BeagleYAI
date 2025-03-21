@@ -20,6 +20,8 @@
 #include "joystickFunctionalities.h"
 #include "lcd_draw.h"
 
+#include "micHandler.h"
+
 int main()
 {
     printf("Starting Program.\n");
@@ -30,13 +32,15 @@ int main()
     Lcd_draw_init();
     Gpio_initialize();
     Rotary_encoder_init();
-    Accelerometer_init();
+    // Accelerometer_init();
     Joystick_init();
-    BeatGenerator_init();
+    // BeatGenerator_init();
     JoystickFunction_init();
     RotaryEncoderFunction_init();
-    TerminalOutput_init();
+    // TerminalOutput_init();
     UdpServer_start();
+    
+    micHandler_startRecording(10);
     
 
     while(UdpServer_isOnline()) {
@@ -46,12 +50,12 @@ int main()
     printf("Cleaning up modules.\n");
 
     UdpServer_stop();
-    TerminalOutput_cleanup();
+    // TerminalOutput_cleanup();
     RotaryEncoderFunction_cleanup();
     JoystickFunction_cleanup();
-    BeatGenerator_cleanup();
+    // BeatGenerator_cleanup();
     Joystick_cleanup();
-    Accelerometer_cleanup();
+    // Accelerometer_cleanup();
     Rotary_encoder_cleanup();
     Gpio_cleanup();
     Lcd_draw_cleanup();

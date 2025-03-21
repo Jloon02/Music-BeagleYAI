@@ -77,8 +77,3 @@ const char *file_path = "../../wave-files/test.wav";  // Path to the .wav file t
     // Close the socket
     close(client_socket);
 }
-
-int main() {
-    TCP_client();
-    return 0;
-}
