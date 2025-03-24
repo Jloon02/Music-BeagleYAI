@@ -1,4 +1,4 @@
-# Install script for directory: /home/josh/cmpt433/work/Music-BeagleYAI/hardware
+# Install script for directory: /home/calbertan/Music-BeagleYAI/hardware
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -39,27 +39,27 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+  set(CMAKE_OBJDUMP "/usr/bin/aarch64-linux-gnu-objdump")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/lgpio/cmake_install.cmake")
+  include("/home/calbertan/Music-BeagleYAI/hardware/build/lgpio/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/lcd/cmake_install.cmake")
+  include("/home/calbertan/Music-BeagleYAI/hardware/build/lcd/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/hal/cmake_install.cmake")
+  include("/home/calbertan/Music-BeagleYAI/hardware/build/hal/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/app/cmake_install.cmake")
+  include("/home/calbertan/Music-BeagleYAI/hardware/build/app/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -70,5 +70,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/josh/cmpt433/work/Music-BeagleYAI/hardware/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/calbertan/Music-BeagleYAI/hardware/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
