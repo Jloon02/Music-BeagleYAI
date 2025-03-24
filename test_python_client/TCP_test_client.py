@@ -1,5 +1,7 @@
 import socket
 import json
+import hashlib
+import os
 
 # Client configuration
 HOST = '127.0.0.1'  # Server IP address
@@ -16,6 +18,18 @@ def print_song_metadata(song_data):
     print(f"Release Date: {song_data.get('release_date')}")
     print(f"Spotify URL: {song_data.get('spotify_url')}")
     print(f"Apple Music URL: {song_data.get('apple_music_url')}")
+
+
+def calculate_md5(file_path):
+    """
+    Calculate the MD5 checksum of a file.
+    """
+    hash_md5 = hashlib.md5()
+    with open(file_path, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
+
 
 def send_file(file_path):
     """
@@ -49,14 +63,19 @@ def send_file(file_path):
         print("Received metadata:")
         print_song_metadata(song_metadata)
 
-        # Receive the .wav file
-        with open("received_song.wav", 'wb') as f:
+        # Receive the processed .wav file
+        received_file_path = "processed_audio.wav"
+        with open(received_file_path, 'wb') as f:
             while True:
                 chunk = client_socket.recv(4096)
                 if not chunk:
                     break
                 f.write(chunk)
-        print("Processed file received and saved as 'received_song.wav'.")
+                
+        # Verify the received file
+        received_file_md5 = calculate_md5(received_file_path)
+        print(f"MD5 checksum of received file: {received_file_md5}")
+        print(f"Processed file received and saved as '{received_file_path}'.")
 
 
 if __name__ == "__main__":

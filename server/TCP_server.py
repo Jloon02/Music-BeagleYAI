@@ -74,7 +74,7 @@ def start_server():
                 # Send the metadata to the client
                 metadata_json = json.dumps(song_metadata)
                 metadata_bytes = metadata_json.encode()
-                client_socket.sendall(metadata_bytes + b"<END_OF_METADATA>")
+                client_socket.sendall(metadata_bytes)
 
                 # Send a delimiter to indicate end of metadata
                 client_socket.sendall(b"<END_OF_METADATA>")
