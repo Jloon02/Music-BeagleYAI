@@ -1,31 +1,19 @@
 import socket
 import os
-from scipy.io import wavfile
+import uuid
+import json
+from song_recognition import recognize_and_download_song
 
 # Server configuration
 HOST = '0.0.0.0'  # Listen on all available interfaces
 PORT = 12345      # Port to listen on
 BUFFER_SIZE = 4096  # Buffer size for receiving data
-SAVE_DIR = "audio_files"  # Directory to save received .wav files
+SAVE_DIR = "received_audio_files"  # Directory to save received .wav files
 
 # Ensure the save directory exists
 if not os.path.exists(SAVE_DIR):
     os.makedirs(SAVE_DIR)
 
-def process_wav_file(file_path):
-    """
-    Process the received .wav file.
-    For example, read its metadata or perform analysis.
-    """
-    try:
-        sample_rate, data = wavfile.read(file_path)
-        print(f"Processing .wav file: {file_path}")
-        print(f"Sample rate: {sample_rate} Hz")
-        print(f"Data shape: {data.shape}")
-        print(f"Data type: {data.dtype}")
-        # Add more processing logic here if needed
-    except Exception as e:
-        print(f"Error processing .wav file: {e}")
 
 def save_file(file_path, data):
     """
@@ -34,6 +22,14 @@ def save_file(file_path, data):
     with open(file_path, 'wb') as f:
         f.write(data)
     print(f"File saved: {file_path}")
+
+
+def generate_unique_filename():
+    """
+    Generate a unique filename for the received .wav file.
+    """
+    return f"received_audio_{uuid.uuid4().hex}.wav"
+
 
 def start_server():
     """
@@ -58,16 +54,40 @@ def start_server():
                         break
                     file_data += chunk
 
+                    # Check if the end of the file was reached
+                    if file_data.endswith(b"<END>"):
+                        file_data = file_data[:-5]
+                        break
+                    
+                    print(f"Received {len(file_data)} bytes.")
+
                 # Save the received file
-                file_name = "received_audio.wav"
+                file_name = generate_unique_filename()
                 file_path = os.path.join(SAVE_DIR, file_name)
                 save_file(file_path, file_data)
 
                 # Process the .wav file
-                process_wav_file(file_path)
+                song_metadata, song_file_path = recognize_and_download_song(file_path)
+                print("Formatted metadata:", song_metadata)
+                print("File path:", song_file_path)
 
-                # Send a response to the client
-                client_socket.sendall(b"File received and processed successfully.")
+                # Send the metadata to the client
+                metadata_json = json.dumps(song_metadata)
+                metadata_bytes = metadata_json.encode()
+                client_socket.sendall(metadata_bytes + b"<END_OF_METADATA>")
+
+                # Send a delimiter to indicate end of metadata
+                client_socket.sendall(b"<END_OF_METADATA>")
+
+                # Send the processed .wav file to the client
+                with open(song_file_path, 'rb') as f:
+                    while True:
+                        file_chunk = f.read(BUFFER_SIZE)
+                        if not file_chunk:
+                            break
+                        client_socket.sendall(file_chunk)
+
+                print("Metadata and file sent to the client.")
             except Exception as e:
                 print(f"Error handling client: {e}")
                 client_socket.sendall(b"Error processing file.")
