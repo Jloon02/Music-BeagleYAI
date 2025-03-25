@@ -17,15 +17,6 @@ target_link_libraries(music_board LINK_PRIVATE asound)
 find_package(Threads REQUIRED)
 target_link_libraries(music_board LINK_PRIVATE Threads::Threads)
 
-find_library(GCRYPT_LIBRARY NAMES gcrypt)
-find_path(GCRYPT_INCLUDE_DIR NAMES gcrypt.h)
-if (GCRYPT_LIBRARY AND GCRYPT_INCLUDE_DIR)
-    target_include_directories(music_board PRIVATE ${GCRYPT_INCLUDE_DIR})
-    target_link_libraries(music_board PRIVATE ${GCRYPT_LIBRARY})
-else()
-    message(FATAL_ERROR "Could not find libgcrypt")
-endif()
-
 # Copy executable to final location (change `music_board` to project name as needed)
 add_custom_command(TARGET music_board POST_BUILD 
   COMMAND "${CMAKE_COMMAND}" -E copy 

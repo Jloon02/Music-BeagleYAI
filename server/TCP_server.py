@@ -86,6 +86,8 @@ def start_server():
                         if not file_chunk:
                             break
                         client_socket.sendall(file_chunk)
+                        
+                client_socket.sendall(b"<END>")
 
                 print("Metadata and file sent to the client.")
             except Exception as e:
