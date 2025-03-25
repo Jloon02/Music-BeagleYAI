@@ -5,7 +5,7 @@ import json
 from song_recognition import recognize_and_download_song
 
 # Server configuration
-HOST = '0.0.0.0'  # Listen on all available interfaces
+HOST = '192.168.6.1'  # Listen on all available interfaces
 PORT = 12345      # Port to listen on
 BUFFER_SIZE = 4096  # Buffer size for receiving data
 SAVE_DIR = "received_audio_files"  # Directory to save received .wav files
