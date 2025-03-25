@@ -24,117 +24,116 @@ static UWORD *s_fb;
 static pthread_t lcdUpdateThread;
 static bool updateLCD = true;
 static bool isInitialized = false;
-static const int buffer_size = 24;
+static const int buffer_size = 48;
+static const int url_buffer_size = 128;
 
 static int current_screen = 0;
-static int prev_screen = 0;
+
+// static const int x = 5;
+static const int volumeY = 220;
+
 // Screen one
 static int current_volume = 80;
-static int current_bpm = 120;
-static BeatMode current_mode = BEAT_ROCK;
+// static int current_bpm = 120;
+
+// Song Information
+static char* song_name      = "NA"; // "IRIS ASLDKASLMDASOCMLJAOSKXLMAODMLASDJAPSMXOAMOMXMASPDKASDJMPOQJDPMSMXOAKSPXASDLJFAO@)EKFSSSSSFMASDLKFASLDFKOJFAKSWEFCMAS";
+static char* artist_name    = "NA"; // "The Goo Goo Dolls"
+static char* album_name     = "NA"; // "Dizzy up the Girl"
+static char* release_date   = "NA"; // "1998"
+static char* spotify_url    = "NA"; // "https://www.spotify.com/lmaoxd/ajsdhn108jlaksnDASD!9jnaxsou")
+static char* apple_url      = "NA"; // "https://www.apple.com/music/kasANSD1VNK9j1lmsd"
+
 static pthread_mutex_t screen_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-void lcd_draw_screenOne(void)
-{
-    assert(isInitialized);
-    const int x = 5;
-    const int y = 70;
-    // Change the beat name
-    Paint_Clear(WHITE);
-    char titleBuffer[buffer_size];
-    snprintf(titleBuffer, sizeof(titleBuffer), "%s", BeatMode_toString(current_mode));
-    int textWidth = strlen(titleBuffer) * 8; // Font16 width ~8px per char
-    int centerX = (LCD_1IN54_WIDTH - textWidth) / 2;
-    Paint_DrawString_EN(centerX, y, titleBuffer, &Font16, WHITE, BLACK);
+// Function to help truncate strings that won't fit in the buffer
+static void truncate_to_fit(char* dest, size_t dest_size, const char* label, const char* text, int font_width, int max_width_px) {
+    int label_len = strlen(label);
+    int max_chars_total = max_width_px / font_width;
+    int max_text_chars = max_chars_total - label_len;
 
-    // Draw Volume in bottom-left
+    if (max_text_chars <= 0) {
+        // Not enough space to show even the label
+        dest[0] = '\0';
+        return;
+    }
+
+    int text_len = strlen(text);
+    if (text_len > max_text_chars) {
+        // Reserve 3 spaces for "..."
+        int visible_chars = max_text_chars - 3;
+        if (visible_chars < 0) visible_chars = 0; // just in case
+        snprintf(dest, dest_size, "%s%.*s...", label, visible_chars, text);
+    } else {
+        snprintf(dest, dest_size, "%s%s", label, text);
+    }
+}
+
+void Lcd_draw_songScreen(void)
+{
+    assert (isInitialized);
+    Paint_Clear(WHITE);
+
+    // TODO:
+    // How to make sure the text fits on screen, also that it won't overflow?
+
+    int y = 0;
+    // Display Song name 
+    char titleBuffer[buffer_size];
+    truncate_to_fit(titleBuffer, sizeof(titleBuffer), "Song:", song_name, 8, LCD_1IN54_WIDTH);
+    Paint_DrawString_EN(0, y, titleBuffer, &Font16, WHITE, BLACK);
+    y += 40;
+
+    // Display Artist
+    char artistBuffer[buffer_size];
+    truncate_to_fit(artistBuffer, sizeof(artistBuffer), "Artist:", artist_name, 8, LCD_1IN54_WIDTH);
+    Paint_DrawString_EN(0, y, artistBuffer, &Font16, WHITE, BLACK);
+    y += 40;
+
+    // Display Album
+    char albumBuffer[buffer_size];
+    truncate_to_fit(albumBuffer, sizeof(albumBuffer), "Album:", album_name, 8, LCD_1IN54_WIDTH);
+    Paint_DrawString_EN(0, y, albumBuffer, &Font16, WHITE, BLACK);
+    y += 40;
+
+    // // Display Release Date
+    char releaseBuffer[buffer_size];
+    truncate_to_fit(releaseBuffer, sizeof(releaseBuffer), "Release:", release_date, 8, LCD_1IN54_WIDTH);
+    Paint_DrawString_EN(0, y, releaseBuffer, &Font16, WHITE, BLACK);
+    y += 20;
+
+    // // Display Spotify URL
+    char spotifyBuffer[url_buffer_size];
+    snprintf(spotifyBuffer, sizeof(spotifyBuffer), "Spotify URL:%s", spotify_url);
+    Paint_DrawString_EN(0, y, spotifyBuffer, &Font12, WHITE, BLACK);
+    y += 40;
+
+    // Display Apple Music URL
+    char appleBuffer[url_buffer_size];
+    snprintf(appleBuffer, sizeof(appleBuffer), "Apple URL:%s", apple_url);
+    Paint_DrawString_EN(0, y, appleBuffer, &Font12, WHITE, BLACK);
+    y += 40;
+
+
+    // // Display Volume
     char volumeBuffer[buffer_size];
-    snprintf(volumeBuffer, sizeof(volumeBuffer), "Vol: %d", current_volume);
-    int volY = LCD_1IN54_HEIGHT - 20;  // Bottom-left corner
-    Paint_DrawString_EN(x, volY, volumeBuffer, &Font16, WHITE, BLACK);
+    snprintf(volumeBuffer, sizeof(volumeBuffer), "Volume:%d ", current_volume);
+    Paint_DrawString_EN(0, volumeY, volumeBuffer, &Font16, WHITE, BLACK);
 
-    // Draw BPM in bottom-right
-    char bpmBuffer[buffer_size];
-    snprintf(bpmBuffer, sizeof(bpmBuffer), "BPM: %d", current_bpm); // Example BPM value
-    int bpmTextWidth = strlen(bpmBuffer) * 8; // Font16 width ~8px per char
-    int bpmX = LCD_1IN54_WIDTH - bpmTextWidth - 25; // Ensure there is enough space
-    int bpmY = LCD_1IN54_HEIGHT - 20; 
-    Paint_DrawString_EN(bpmX, bpmY, bpmBuffer, &Font16, WHITE, BLACK);
 
-    LCD_1IN54_DisplayWindows(x, y, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, s_fb);
+    LCD_1IN54_DisplayWindows(0, 0, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, s_fb);
 }
 
-void lcd_draw_screenTwo(void)
+static void lcd_draw_volume(void)
 {
-    assert(isInitialized);
-
-    const int x = 5;
-    const int y = 70;
-    int nextY = y;
-
-    Period_statistics_t stats;
-    Period_getStatisticsAndClear(PERIOD_EVENT_AUDIO_BUFFER, &stats);
-
+    printf("Drawing Volum!\n");
     Paint_Clear(WHITE);
-    char titleBuffer[buffer_size];
-    snprintf(titleBuffer, sizeof(titleBuffer), "%s", "Audio Timing");
-    int textWidth = strlen(titleBuffer) * 8; // Font16 width ~8px per char
-    int centerX = (LCD_1IN54_WIDTH - textWidth) / 2;
-    Paint_DrawString_EN(centerX, nextY, titleBuffer, &Font16, WHITE, BLACK);
-    nextY += 20;
+    char volumeBuffer[buffer_size];
+    snprintf(volumeBuffer, sizeof(volumeBuffer), "Volume:%d ", current_volume);
+    Paint_DrawString_EN(0, volumeY, volumeBuffer, &Font16, WHITE, BLACK);
 
-    char minBuffer[buffer_size];
-    snprintf(minBuffer, sizeof(minBuffer), "min ms: %.3f", stats.minPeriodInMs);
-    Paint_DrawString_EN(centerX, nextY, minBuffer, &Font16, WHITE, BLACK);
-    nextY += 20;
+    LCD_1IN54_DisplayWindows(0, volumeY, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, s_fb);
 
-    char maxBuffer[buffer_size];
-    snprintf(maxBuffer, sizeof(maxBuffer), "max ms: %.3f", stats.maxPeriodInMs);
-    Paint_DrawString_EN(centerX, nextY, maxBuffer, &Font16, WHITE, BLACK);
-    nextY += 20;
-
-    char avgBuffer[buffer_size];
-    snprintf(avgBuffer, sizeof(avgBuffer), "avg ms: %.3f", stats.avgPeriodInMs);
-    Paint_DrawString_EN(centerX, nextY, avgBuffer, &Font16, WHITE, BLACK);
-
-
-    LCD_1IN54_DisplayWindows(x, y, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, s_fb);
-}
-
-void lcd_draw_screenThree(void)
-{
-    assert(isInitialized);
-
-    const int x = 5;
-    const int y = 70;
-    int nextY = y;
-
-    Period_statistics_t accelStats;
-    Period_getStatisticsAndClear(PERIOD_EVENT_ACCELEORMETER, &accelStats);
-
-    Paint_Clear(WHITE);
-    char titleBuffer[buffer_size];
-    snprintf(titleBuffer, sizeof(titleBuffer), "%s", "Accel. Timing");
-    int textWidth = strlen(titleBuffer) * 8; // Font16 width ~8px per char
-    int centerX = (LCD_1IN54_WIDTH - textWidth) / 2;
-    Paint_DrawString_EN(centerX, nextY, titleBuffer, &Font16, WHITE, BLACK);
-    nextY += 20;
-
-    char minBuffer[buffer_size];
-    snprintf(minBuffer, sizeof(minBuffer), "min ms: %.3f", accelStats.minPeriodInMs);
-    Paint_DrawString_EN(centerX, nextY, minBuffer, &Font16, WHITE, BLACK);
-    nextY += 20;
-
-    char maxBuffer[buffer_size];
-    snprintf(maxBuffer, sizeof(maxBuffer), "max ms: %.3f", accelStats.maxPeriodInMs);
-    Paint_DrawString_EN(centerX, nextY, maxBuffer, &Font16, WHITE, BLACK);
-    nextY += 20;
-
-    char avgBuffer[buffer_size];
-    snprintf(avgBuffer, sizeof(avgBuffer), "avg ms: %.3f", accelStats.avgPeriodInMs);
-    Paint_DrawString_EN(centerX, nextY, avgBuffer, &Font16, WHITE, BLACK);
-
-    LCD_1IN54_DisplayWindows(x, y, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, s_fb);
 }
 
 int Lcd_get_screen(void)
@@ -159,54 +158,15 @@ void Lcd_set_screen(void)
 static void* lcdUpdateFunction(void* arg)
 {
     (void) arg;
+    Lcd_draw_songScreen();
     while (updateLCD) {
-        // If current and prev are different, we've changed screens
-        int temp_screen = Lcd_get_screen();
-        if (temp_screen != prev_screen) {
-            Paint_Clear(WHITE);
-            // Change screen
-            if (temp_screen == 0) {
-                lcd_draw_screenOne();
-            }
-            else if (temp_screen == 1)
-            {
-                Paint_Clear(WHITE);
-                lcd_draw_screenTwo();
-            } 
-            else if (temp_screen == 2)
-            {
-                Paint_Clear(WHITE);
-                lcd_draw_screenThree();
-            }
-            prev_screen = temp_screen;
-        }
+        // TODO
+        // When we get new information from song, update the song screen
 
-        switch (temp_screen) {
-            case 0: {
-                // Add code to handle screen 0
-                int temp_bpm = BeatGenerator_getTempo();
-                int temp_volume = AudioMixer_getVolume();
-                BeatMode temp_mode = BeatGenerator_getMode();
-                if (current_bpm != temp_bpm || current_volume != temp_volume || current_mode != temp_mode) {
-                    current_bpm = temp_bpm;
-                    current_volume = temp_volume;
-                    current_mode = temp_mode;
-                    lcd_draw_screenOne();
-                }
-            }
-                break;
-            case 1:
-                // Add code to handle screen 1
-                lcd_draw_screenTwo();
-                break;
-            case 2:
-                // Add code to handle screen 2
-                lcd_draw_screenThree();
-                break;
-            default:
-                printf("Invalid screen\n");
-                // Optional: Add code to handle invalid values (if necessary)
-                break;
+        int temp_volume = AudioMixer_getVolume();
+        if (current_volume != temp_volume) {
+            current_volume = temp_volume;
+            lcd_draw_volume();
         }
         sleep_for_ms(50);
         
@@ -258,26 +218,3 @@ void Lcd_draw_cleanup()
 	DEV_ModuleExit();
     isInitialized = false;
 }
-
-// void lcd_draw_updateScreen(char* message)
-// {
-//     assert(isInitialized);
-
-//     const int x = 5;
-//     const int y = 70;
-
-//     // Initialize the RAM frame buffer to be blank (white)
-//     Paint_NewImage(s_fb, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, 0, WHITE, 16);
-//     Paint_Clear(WHITE);
-
-//     // Draw into the RAM frame buffer
-//     // WARNING: Don't print strings with `\n`; will crash!
-//     Paint_DrawString_EN(x, y, message, &Font16, WHITE, BLACK);
-
-//     // Send the RAM frame buffer to the LCD (actually display it)
-//     // Option 1) Full screen refresh (~1 update / second)
-//     // LCD_1IN54_Display(s_fb);
-//     // Option 2) Update just a small window (~15 updates / second)
-//     //           Assume font height <= 20
-//     LCD_1IN54_DisplayWindows(x, y, LCD_1IN54_WIDTH, y+20, s_fb);
-// }

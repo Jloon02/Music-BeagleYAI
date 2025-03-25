@@ -23,7 +23,7 @@ static void* joystick_running(void* arg)
 {
     assert(isInitialized);
     (void)arg;
-    lcd_draw_screenOne();
+    // Lcd_draw_songScreen();
     while (keepRunning) {
         Direction current = get_direction();
         int volume = AudioMixer_getVolume();
@@ -34,11 +34,6 @@ static void* joystick_running(void* arg)
             AudioMixer_setVolume(volume - 5);
         }
         
-        // Check if the button was just clicked
-        if (joystick_button_clicked()) {
-            Lcd_set_screen();
-        }
-
         sleep_for_ms(50);
     }
     return NULL;
