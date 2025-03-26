@@ -8,9 +8,7 @@
 void Lcd_draw_init(void);
 void Lcd_draw_cleanup(void);
 
-void lcd_draw_screenOne(void);
-void lcd_draw_screenTwo(void);
-void lcd_draw_screenThree(void);
+void Lcd_draw_songScreen(void);
 
 int Lcd_get_screen(void);
 void Lcd_set_screen(void);

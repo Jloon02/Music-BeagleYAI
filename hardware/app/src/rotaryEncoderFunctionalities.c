@@ -10,8 +10,6 @@
 
 #include "rotaryEncoderFunctionalities.h"
 #include "timeFunction.h"
-#include "beatboxGenerator.h"
-#include "hal/audioMixer.h"
 #include "hal/rotary_encoder.h"
 // This will create a thread that constantly monitors rotary encoder inputs and respond appropriately
 
@@ -27,25 +25,22 @@ static void* rotaryEncoderThreadFunc(void* arg)
     while (keepRunning) {        
         // Check for clicks
         if (Rotary_encoder_get_click()) {
-            BeatMode currBeatMode = BeatGenerator_getMode();
-            // Cycle to next beat mode
-            if (currBeatMode == BEAT_CUSTOM) {
-                BeatGenerator_setMode(BEAT_NONE);
-            } else {
-                BeatGenerator_setMode(++currBeatMode);
-            }
+            // TODO
+            // Unknown what we want to do with rotary encoder clicks yet
             Rotary_encoder_set_click(false);
         }
 
         // Check for tempo changes
-        bool hasTurnedCW = Rotary_encoder_isCW();
-        bool hasTurnedCCW = Rotary_encoder_isCCW();
-
-        if(hasTurnedCW) {
-            BeatGenerator_setTempo(BeatGenerator_getTempo() + 5);
-        } else if(hasTurnedCCW) {
-            BeatGenerator_setTempo(BeatGenerator_getTempo() - 5);
-        }
+        // bool hasTurnedCW = Rotary_encoder_isCW();
+        // bool hasTurnedCCW = Rotary_encoder_isCCW();
+        // int volume = AudioMixer_getVolume();
+        // if(hasTurnedCW) {
+        //     volume += 1;
+        //     AudioMixer_setVolume(volume);
+        // } else if(hasTurnedCCW) {
+        //     volume -= 1;
+        //     AudioMixer_setVolume(volume);
+        // }
 
         sleep_for_ms(50);
     }
