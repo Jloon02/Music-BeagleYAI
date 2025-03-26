@@ -33,16 +33,16 @@ static void* rotaryEncoderThreadFunc(void* arg)
         }
 
         // Check for tempo changes
-        bool hasTurnedCW = Rotary_encoder_isCW();
-        bool hasTurnedCCW = Rotary_encoder_isCCW();
-        int volume = AudioMixer_getVolume();
-        if(hasTurnedCW) {
-            volume += 1;
-            AudioMixer_setVolume(volume);
-        } else if(hasTurnedCCW) {
-            volume -= 1;
-            AudioMixer_setVolume(volume);
-        }
+        // bool hasTurnedCW = Rotary_encoder_isCW();
+        // bool hasTurnedCCW = Rotary_encoder_isCCW();
+        // int volume = AudioMixer_getVolume();
+        // if(hasTurnedCW) {
+        //     volume += 1;
+        //     AudioMixer_setVolume(volume);
+        // } else if(hasTurnedCCW) {
+        //     volume -= 1;
+        //     AudioMixer_setVolume(volume);
+        // }
 
         sleep_for_ms(50);
     }

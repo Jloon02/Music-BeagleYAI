@@ -10,6 +10,7 @@
 
 #include "timeFunction.h"
 #include "hal/audioMixer.h"
+#include "hal/wavePlayback.h"
 #include "hal/joystick.h"
 #include "lcd_draw.h"
 #include "joystickFunctionalities.h"
@@ -26,12 +27,16 @@ static void* joystick_running(void* arg)
     // Lcd_draw_songScreen();
     while (keepRunning) {
         Direction current = get_direction();
-        int volume = AudioMixer_getVolume();
+        int volume = WavePlayback_getVolume();
         
         if (current == DIR_UP && volume < AUDIOMIXER_MAX_VOLUME) {
-            AudioMixer_setVolume(volume + 5);
+            WavePlayback_setVolume(volume + 5);
         } else if (current == DIR_DOWN && volume > 0) {
-            AudioMixer_setVolume(volume - 5);
+            WavePlayback_setVolume(volume - 5);
+        }
+
+        if (joystick_button_clicked()) {
+            WavePlayback_startThread();
         }
         
         sleep_for_ms(50);

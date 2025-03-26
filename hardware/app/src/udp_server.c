@@ -61,7 +61,7 @@ static void handleCommand(int sockfd, struct sockaddr_in *clientAddr, socklen_t 
         if (argNum == 2) {
             // Adjust volume if option is provided
             if (option >= 0 && option <= 100) {
-                AudioMixer_setVolume(option);
+                // AudioMixer_setVolume(option);
                 snprintf(response, BUFFER_SIZE, "Volume set to %d\n", option);
             } else {
                 snprintf(response, BUFFER_SIZE, "Invalid volume: %d\n", option);

@@ -14,11 +14,12 @@
 #include "hal/periodTimer.h"
 #include "beatboxGenerator.h"
 #include "rotaryEncoderFunctionalities.h"
-#include "hal/audioMixer.h"
+// #include "hal/audioMixer.h"
 #include "udp_server.h"
 #include "hal/joystick.h"
 #include "joystickFunctionalities.h"
 #include "lcd_draw.h"
+#include "hal/wavePlayback.h"
 
 #include "micHandler.h"
 
@@ -28,7 +29,8 @@ int main()
 
     // Initialize all modules; HAL modules first
     Period_init();
-    AudioMixer_init();
+    // AudioMixer_init();
+    WavePlayback_init();
     Lcd_draw_init();
     Gpio_initialize();
     Rotary_encoder_init();
@@ -40,7 +42,7 @@ int main()
     // TerminalOutput_init();
     UdpServer_start();
     
-    micHandler_startRecording(10);
+    // micHandler_startRecording(10);
     
 
     while(UdpServer_isOnline()) {
@@ -59,8 +61,31 @@ int main()
     Rotary_encoder_cleanup();
     Gpio_cleanup();
     Lcd_draw_cleanup();
-    AudioMixer_cleanup();
+    WavePlayback_cleanup();
+    // AudioMixer_cleanup();
     Period_cleanup();
+
+
+
+
+    // snd_pcm_t *handle = WavePlayback_openDevice();
+
+    // wavedata_t sampleFile;
+    // WavePlayback_readWaveFileIntoMemory(SOURCE_FILE, &sampleFile);
+    // // WavePlayback_playFile(handle, &sampleFile);
+
+    // // WavePlayback_cleanAll(handle, &sampleFile);
+
+    // // Example 2
+    // WavePlayback_streamFile(handle, SOURCE_FILE);
+    // WavePlayback_cleanAll(handle, &sampleFile);
+    // while (1 == 1) {
+
+    // }
+
+
+    // Let's do have the program run normally, if 
+
 
     printf("Program completely successfully.\n");
     return 0;

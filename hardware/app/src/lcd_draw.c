@@ -9,7 +9,8 @@
 
 #include "lcd_draw.h"
 #include "timeFunction.h"
-#include "hal/audioMixer.h"
+// #include "hal/audioMixer.h"
+#include "hal/wavePlayback.h"
 #include "beatboxGenerator.h"
 #include "hal/periodTimer.h"
 #include "hal/rotary_encoder.h"
@@ -163,7 +164,7 @@ static void* lcdUpdateFunction(void* arg)
         // TODO
         // When we get new information from song, update the song screen
 
-        int temp_volume = AudioMixer_getVolume();
+        int temp_volume = WavePlayback_getVolume();
         if (current_volume != temp_volume) {
             current_volume = temp_volume;
             lcd_draw_volume();
