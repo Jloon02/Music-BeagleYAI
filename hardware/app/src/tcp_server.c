@@ -9,7 +9,11 @@
 #define SERVER_PORT 12345      // Server port
 #define BUFFER_SIZE 4096       // Buffer size for sending data
 #define METADATA_END "<END_OF_METADATA>"
+#define METADATA_END_LEN 17
 #define FILE_END "<END>"
+
+char metadata[BUFFER_SIZE];
+size_t metadata_size = 0;
 
 // Function to send a file to the server
 void send_file(int client_socket, const char *file_path) {
@@ -39,37 +43,82 @@ void send_file(int client_socket, const char *file_path) {
     printf("File sent successfully: %s\n", file_path);
 }
 
-
-// Function to receive and save the processed file from the server
 void receive_file(int client_socket, const char *output_file) {
-    FILE *file = fopen(output_file, "wb");
+    char buffer[BUFFER_SIZE + 1]; // +1 for null-termination
+    FILE *file = NULL;
+    int metadata_received = 0;
+    size_t bytes_received;
+    size_t metadata_end_pos = 0;
+    size_t total_bytes_received = 0;
+    
+    // Reset global metadata for each new file
+    metadata[0] = '\0';
+    metadata_size = 0;
+
+    // Open the output file for writing
+    file = fopen(output_file, "wb");
     if (!file) {
-        perror("Failed to create output file");
+        perror("Failed to open output file");
         return;
     }
+    
+    // receive metadata until we find the end marker
+    while (!metadata_received) {
+        bytes_received = recv(client_socket, buffer, BUFFER_SIZE, 0);
+        if (bytes_received <= 0) {
+            perror("Error receiving data");
+            return;
+        }
 
-    char buffer[BUFFER_SIZE];
-    ssize_t bytes_received;
-    size_t total_received = 0;
+        // Ensure the buffer is null-terminated for strstr
+        buffer[bytes_received] = '\0';
 
-    while ((bytes_received = recv(client_socket, buffer, sizeof(buffer), 0)) > 0) {
-        // Write received data to file
-        fwrite(buffer, 1, bytes_received, file);
-        total_received += bytes_received;
-
-        // Check if we have received the <END> marker
-        if (bytes_received >= 5 && memcmp(buffer + bytes_received - 5, FILE_END, 5) == 0) {
-            break;  // Stop receiving when <END> is found
+        // Check for end marker in the received chunk
+        char *end_marker = strstr(buffer, METADATA_END);
+        if (end_marker) {
+            metadata_end_pos = end_marker - buffer;
+            
+            // Append the part before the marker to metadata
+            memcpy(metadata + metadata_size, buffer, metadata_end_pos);
+            metadata_size += metadata_end_pos;
+            metadata[metadata_size] = '\0';
+            
+            metadata_received = 1;
+            
+            // Write the remaining data after the marker to the file
+            size_t file_data_start = metadata_end_pos + METADATA_END_LEN;
+            size_t remaining_bytes = bytes_received - file_data_start;
+            
+            if (remaining_bytes > 0) {
+                fwrite(buffer + file_data_start, 1, remaining_bytes, file);
+                total_bytes_received += remaining_bytes;
+            }
+        } 
+        // No end marker yet, append entire chunk to metadata
+        else {
+            memcpy(metadata + metadata_size, buffer, bytes_received);
+            metadata_size += bytes_received;
+            metadata[metadata_size] = '\0';
         }
     }
 
-    // Ensure file is completely written
-    if (bytes_received < 0) {
-        perror("Error receiving file data");
+    // Print the received metadata
+    printf("Received metadata:\n%s\n", metadata);
+
+    // Continue receiving file data
+    while (1) {
+        bytes_received = recv(client_socket, buffer, BUFFER_SIZE, 0);
+        if (bytes_received <= 0) {
+            break;
+        }
+        
+        fwrite(buffer, 1, bytes_received, file);
+        total_bytes_received += bytes_received;
     }
 
-    fclose(file);
-    printf("Processed file received and saved as: %s\n", output_file);
+    if (file) {
+        fclose(file);
+    }
 }
 
 void TCP_send_file_to_server(const char* file_path){
@@ -98,7 +147,7 @@ void TCP_send_file_to_server(const char* file_path){
         close(client_socket);
         exit(EXIT_FAILURE);
     }
-    printf("Connected to server at %s:%d\n", SERVER_IP, SERVER_PORT);
+    // printf("Connected to server at %s:%d\n", SERVER_IP, SERVER_PORT);
 
     // Send the WAV file
     send_file(client_socket, file_path);
@@ -109,15 +158,6 @@ void TCP_send_file_to_server(const char* file_path){
     // Receive and save the processed file
     const char *output_file = "wave-files/processed_audio.wav";
     receive_file(client_socket, output_file);
-
-    // Calculate and display MD5 checksum
-    // unsigned char md5_result[16];  // MD5 produces a 16-byte hash
-    // calculate_md5(output_file, md5_result);
-    // printf("MD5 Checksum of received file: ");
-    // for (int i = 0; i < 16; i++) {
-    //     printf("%02x", md5_result[i]);
-    // }
-    // printf("\n");
 
     // Close the socket
     close(client_socket);

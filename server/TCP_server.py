@@ -74,6 +74,7 @@ def start_server():
                 # Send the metadata to the client
                 metadata_json = json.dumps(song_metadata)
                 metadata_bytes = metadata_json.encode()
+
                 client_socket.sendall(metadata_bytes)
 
                 # Send a delimiter to indicate end of metadata
@@ -87,8 +88,6 @@ def start_server():
                             break
                         client_socket.sendall(file_chunk)
                         
-                client_socket.sendall(b"<END>")
-
                 print("Metadata and file sent to the client.")
             except Exception as e:
                 print(f"Error handling client: {e}")
