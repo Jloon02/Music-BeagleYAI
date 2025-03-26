@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
-// #include <gcrypt.h>
+#include <cjson/cJSON.h>
 
 #define SERVER_IP "192.168.6.1"  // Server IP address
 #define SERVER_PORT 12345      // Server port
@@ -13,7 +13,17 @@
 #define FILE_END "<END>"
 
 char metadata[BUFFER_SIZE];
+cJSON *metadata_json = NULL;
 size_t metadata_size = 0;
+
+void parse_json(const char *json_str){
+    cJSON *root = cJSON_Parse(json_str);
+    if (!root) {
+        printf("Error parsing JSON: %s\n", cJSON_GetErrorPtr());
+        return;
+    }
+    metadata_json = root;
+}
 
 // Function to send a file to the server
 void send_file(int client_socket, const char *file_path) {
@@ -104,6 +114,7 @@ void receive_file(int client_socket, const char *output_file) {
 
     // Print the received metadata
     printf("Received metadata:\n%s\n", metadata);
+    parse_json(metadata);
 
     // Continue receiving file data
     while (1) {
@@ -117,11 +128,12 @@ void receive_file(int client_socket, const char *output_file) {
     }
 
     if (file) {
+        printf("File saved as:\n%s\n", output_file);
         fclose(file);
     }
 }
 
-void TCP_send_file_to_server(const char* file_path){
+void TCP_sendFileToServer(const char* file_path){
     // initialize_libgcrypt();
 
     // Create a socket
@@ -162,4 +174,8 @@ void TCP_send_file_to_server(const char* file_path){
     // Close the socket
     close(client_socket);
     printf("Connection closed.\n");
+}
+
+cJSON* TCP_getMetadata() {
+    return metadata_json;
 }
