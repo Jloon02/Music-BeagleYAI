@@ -21,49 +21,52 @@
 #include "lcd_draw.h"
 #include "hal/wavePlayback.h"
 
-#include "micHandler.h"
+#include "hal/micHandler.h"
 
 int main()
 {
     printf("Starting Program.\n");
 
     // Initialize all modules; HAL modules first
-    Period_init();
+    // Period_init();
     // AudioMixer_init();
-    WavePlayback_init();
-    Lcd_draw_init();
-    Gpio_initialize();
-    Rotary_encoder_init();
+    // Lcd_draw_init();
+    // Gpio_initialize();
+    // Rotary_encoder_init();
     // Accelerometer_init();
-    Joystick_init();
+    // Joystick_init();
     // BeatGenerator_init();
-    JoystickFunction_init();
-    RotaryEncoderFunction_init();
+    // JoystickFunction_init();
+    // RotaryEncoderFunction_init();
     // TerminalOutput_init();
-    UdpServer_start();
+    // UdpServer_start();
     
-    // micHandler_startRecording(10);
-    
+    // start mic then send
+    micHandler_startRecording(5);
+    printf("main has finished recording\n");
 
-    while(UdpServer_isOnline()) {
-        sleep_for_ms(1000);
-    }
+    char* file_path = micHandler_getRecordingPath();
+    TCP_send_file_to_server(file_path);
+    free(file_path);
 
-    printf("Cleaning up modules.\n");
+    // while(UdpServer_isOnline()) {
+    //     sleep_for_ms(1000);
+    // }
 
-    UdpServer_stop();
+    // printf("Cleaning up modules.\n");
+
+    // UdpServer_stop();
     // TerminalOutput_cleanup();
-    RotaryEncoderFunction_cleanup();
-    JoystickFunction_cleanup();
+    // RotaryEncoderFunction_cleanup();
+    // JoystickFunction_cleanup();
     // BeatGenerator_cleanup();
-    Joystick_cleanup();
+    // Joystick_cleanup();
     // Accelerometer_cleanup();
-    Rotary_encoder_cleanup();
-    Gpio_cleanup();
-    Lcd_draw_cleanup();
-    WavePlayback_cleanup();
+    // Rotary_encoder_cleanup();
+    // Gpio_cleanup();
+    // Lcd_draw_cleanup();
     // AudioMixer_cleanup();
-    Period_cleanup();
+    // Period_cleanup();
 
 
 

@@ -25,16 +25,10 @@ add_custom_command(TARGET music_board POST_BUILD
   COMMENT "Copying ARM executable to public NFS directory")
 
 add_custom_command(TARGET music_board POST_BUILD 
-  COMMAND "${CMAKE_COMMAND}" -E copy 
-     "$<TARGET_FILE:music_board>"
-     "~/cmpt433/public/myApps/music_board" 
-  COMMENT "Copying ARM executable to public NFS directory")
-
-add_custom_command(TARGET music_board POST_BUILD 
   COMMAND "${CMAKE_COMMAND}" -E copy_directory
      "${CMAKE_SOURCE_DIR}/wave-files"
      "~/cmpt433/public/myApps/wave-files" 
-  COMMAND chmod -R u+w "~/cmpt433/public/myApps/wave-files"
+  COMMAND chmod u+w "~/cmpt433/public/myApps/wave-files"
   COMMAND chmod 777 "~/cmpt433/public/myApps/wave-files"
   COMMENT "Copying wave-files to public NFS directory and giving permissions")
 

@@ -5,7 +5,7 @@ import json
 from song_recognition import recognize_and_download_song
 
 # Server configuration
-HOST = '0.0.0.0'  # Listen on all available interfaces
+HOST = '192.168.6.1'  # Listen on all available interfaces
 PORT = 12345      # Port to listen on
 BUFFER_SIZE = 4096  # Buffer size for receiving data
 SAVE_DIR = "received_audio_files"  # Directory to save received .wav files
@@ -74,6 +74,7 @@ def start_server():
                 # Send the metadata to the client
                 metadata_json = json.dumps(song_metadata)
                 metadata_bytes = metadata_json.encode()
+
                 client_socket.sendall(metadata_bytes)
 
                 # Send a delimiter to indicate end of metadata
@@ -86,7 +87,7 @@ def start_server():
                         if not file_chunk:
                             break
                         client_socket.sendall(file_chunk)
-
+                        
                 print("Metadata and file sent to the client.")
             except Exception as e:
                 print(f"Error handling client: {e}")

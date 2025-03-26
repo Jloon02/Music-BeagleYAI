@@ -1,3 +1,5 @@
 build/
+hardware/build/
+received_audio_files/
+predicted_audio_files/
 .env
-.vscode/settings.json
