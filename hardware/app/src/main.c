@@ -17,6 +17,7 @@
 #include "hal/wavePlayback.h"
 
 #include "hal/micHandler.h"
+#include "tcp_server.h"
 
 int main()
 {
@@ -47,10 +48,14 @@ int main()
     printf("main has finished recording\n");
 
     char* file_path = micHandler_getRecordingPath();
-    TCP_send_file_to_server(file_path);
+    TCP_sendFileToServer(file_path);
     free(file_path);
     printf("Cleaning up modules.\n");
 
+    // sample to get metadata and a specific field
+    cJSON *metadata = TCP_getMetadata();
+    cJSON *title = cJSON_GetObjectItem(metadata, "title");
+    printf("Title: %s\n", title ? title->valuestring : "N/A");
 
     // Let's do have the program run normally, if 
 

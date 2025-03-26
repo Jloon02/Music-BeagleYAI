@@ -17,6 +17,14 @@ target_link_libraries(music_board LINK_PRIVATE asound)
 find_package(Threads REQUIRED)
 target_link_libraries(music_board LINK_PRIVATE Threads::Threads)
 
+# CJSON support
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(CJSON REQUIRED libcjson)
+
+# Include the cJSON header files and link the library
+target_include_directories(music_board PRIVATE ${CJSON_INCLUDE_DIRS})
+target_link_libraries(music_board PRIVATE ${CJSON_LIBRARIES})
+
 # Copy executable to final location (change `music_board` to project name as needed)
 add_custom_command(TARGET music_board POST_BUILD 
   COMMAND "${CMAKE_COMMAND}" -E copy 

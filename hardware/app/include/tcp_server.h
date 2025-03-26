@@ -6,8 +6,10 @@
 #define _TCP_SERVER_H_
 
 #include <stdbool.h>
+#include <cjson/cJSON.h>
 
 // TCP only called when needed
-void TCP_send_file_to_server(const char* file_path);
+void TCP_sendFileToServer(const char* file_path);
+cJSON* TCP_getMetadata();
 
 #endif
