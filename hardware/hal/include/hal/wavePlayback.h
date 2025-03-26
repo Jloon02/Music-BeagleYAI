@@ -9,15 +9,8 @@
 typedef struct {
     int numSamples;
     short *pData;
-} wavedata_t2;
+} wavedata_t;
 
-snd_pcm_t *WavePlayback_openDevice(void);
-void WavePlayback_readWaveFileIntoMemory(char *fileName, wavedata_t2 *pWaveStruct);
-void WavePlayback_playFile(snd_pcm_t *handle, wavedata_t2 *pWaveData);
-void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName);
-void WavePlayback_cleanAll(snd_pcm_t *handle, wavedata_t2 *pWaveData);
-
-void WavePlayback_stopPlayback(void);
 void WavePlayback_startThread(void);
 int WavePlayback_getVolume(void);
 void WavePlayback_setVolume(int newVolume);

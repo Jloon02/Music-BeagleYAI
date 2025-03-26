@@ -11,8 +11,6 @@
 #include "timeFunction.h"
 // #include "hal/audioMixer.h"
 #include "hal/wavePlayback.h"
-#include "beatboxGenerator.h"
-#include "hal/periodTimer.h"
 #include "hal/rotary_encoder.h"
 #include "DEV_Config.h"
 #include "LCD_1in54.h"
@@ -74,9 +72,6 @@ void Lcd_draw_songScreen(void)
 {
     assert (isInitialized);
     Paint_Clear(WHITE);
-
-    // TODO:
-    // How to make sure the text fits on screen, also that it won't overflow?
 
     int y = 0;
     // Display Song name 

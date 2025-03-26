@@ -18,7 +18,7 @@ static snd_pcm_t *handle = NULL;
 #define NUM_CHANNELS 1
 #define SAMPLE_SIZE (sizeof(short)) // bytes per sample
 
-#define SOURCE_FILE "wave-files/jaded.wav"
+#define SOURCE_FILE "wave-files/test.wav"
 
 
 static int volume = 0;
@@ -30,8 +30,7 @@ static pthread_t playbackThreadId;
 static pthread_mutex_t audioMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Playback threading
-void* playbackThread2(void* arg);
-
+void* playbackThread(void* _arg);
 int WavePlayback_getVolume()
 {
 	// Return the cached volume; good enough unless someone is changing
@@ -72,7 +71,7 @@ void WavePlayback_setVolume(int newVolume)
 }
 
 
-snd_pcm_t *WavePlayback_openDevice(void)
+static snd_pcm_t *WavePlayback_openDevice(void)
 {
     if (handle != NULL) {
         return handle;
@@ -98,10 +97,7 @@ snd_pcm_t *WavePlayback_openDevice(void)
     return handle;
 }
 
-// TODO: Since wave files can be very large, need to divide into chunks so the song can be played
-// Read the entire wave file into memory.
-// This is BLOCKING
-void WavePlayback_readWaveFileIntoMemory(char *fileName, wavedata_t2 *pWaveStruct)
+static void WavePlayback_readWaveFileIntoMemory(char *fileName, wavedata_t *pWaveStruct)
 {
     assert(pWaveStruct);
 
@@ -135,32 +131,8 @@ void WavePlayback_readWaveFileIntoMemory(char *fileName, wavedata_t2 *pWaveStruc
     fclose(file);
 }
 
-// This is BLOCKING
-void WavePlayback_playFile(snd_pcm_t *handle, wavedata_t2 *pWaveData)
-{
-    // If anything is waiting to be written to screen, can be delayed unless flushed
-    fflush(stdout);
-    
-    // Write the entire WAV data to the PCM device and wait until it is done.
-    // `snd_pcm_writei` writes the data to the playback device. It blocks until the entire
-    // data is sent to the hardware.
-    snd_pcm_sframes_t frames = snd_pcm_writei(handle, pWaveData->pData, pWaveData->numSamples);
-
-    // Check for errors
-    if (frames < 0) {
-        frames = snd_pcm_recover(handle, frames, 0);
-    }
-    if (frames < 0) {
-        fprintf(stderr, "ERROR: Failed writing audio with snd_pcm_writei(): %li\n", frames);
-        exit(EXIT_FAILURE);
-    }
-    if (frames > 0 && frames < pWaveData->numSamples) {
-        printf("Short write (expected %d, wrote %li)\n", pWaveData->numSamples, frames);
-    }
-}
-
 // Stream and play the file in chuncks
-void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
+static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
 {
     // Open the file to read in binary
     FILE *file = fopen(fileName, "rb");
@@ -201,24 +173,17 @@ void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
     fclose(file);
 }
 
-void WavePlayback_cleanAll(snd_pcm_t *handle, wavedata_t2 *pWaveData)
-{
-    snd_pcm_drain(handle);
-    snd_pcm_hw_free(handle);
-    snd_pcm_close(handle);
-    free(pWaveData->pData);
-}
-
 // When called, this function starts the thread and plays music
 void WavePlayback_startThread(void)
 {
     if (!playing) {
         playing = true;
-        pthread_create(&playbackThreadId, NULL, playbackThread2, NULL);
+        pthread_create(&playbackThreadId, NULL, playbackThread, NULL);
     }
 }
 
-void WavePlayback_stopPlayback(void)
+// Function to stop playback, might be needed later if we want user to be able to stop music, need to remove static for that
+static void WavePlayback_stopPlayback(void)
 {
     playing = false;
     pthread_join(playbackThreadId, NULL);
@@ -245,10 +210,10 @@ void WavePlayback_cleanup(void)
 
     pthread_join(playbackThreadId, NULL);
 
-    WavePlayback_cleanAll(handle, NULL);
+    WavePlayback_stopPlayback();
 }
 
-void* playbackThread2(void* _arg)
+void* playbackThread(void* _arg)
 {
 	(void)_arg;
     if (handle == NULL) {
@@ -256,7 +221,7 @@ void* playbackThread2(void* _arg)
     }
 
     while (playing) {
-        wavedata_t2 sampleFile;
+        wavedata_t sampleFile;
         WavePlayback_readWaveFileIntoMemory(SOURCE_FILE, &sampleFile);
         
         // Prepare the device before playing

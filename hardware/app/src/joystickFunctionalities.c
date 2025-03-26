@@ -9,7 +9,6 @@
 #include <unistd.h>
 
 #include "timeFunction.h"
-#include "hal/audioMixer.h"
 #include "hal/wavePlayback.h"
 #include "hal/joystick.h"
 #include "lcd_draw.h"

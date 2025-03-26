@@ -10,8 +10,6 @@
 
 #include "rotaryEncoderFunctionalities.h"
 #include "timeFunction.h"
-#include "beatboxGenerator.h"
-#include "hal/audioMixer.h"
 #include "hal/rotary_encoder.h"
 // This will create a thread that constantly monitors rotary encoder inputs and respond appropriately
 
