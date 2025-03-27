@@ -41,15 +41,7 @@ int main()
     // Gpio_cleanup();
     // Lcd_draw_cleanup();
     // WavePlayback_cleanup();
-    
-    
-    // start mic then send
-    micHandler_startRecording(5);
-    printf("main has finished recording\n");
 
-    char* file_path = micHandler_getRecordingPath();
-    TCP_sendFileToServer(file_path);
-    free(file_path);
     printf("Cleaning up modules.\n");
 
     // sample to get metadata and a specific field
