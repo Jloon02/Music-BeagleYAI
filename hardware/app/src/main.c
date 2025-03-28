@@ -35,7 +35,6 @@ int main()
     while (1 == 1) {
         
     }
-
     RotaryEncoderFunction_cleanup();
     JoystickFunction_cleanup();
     Joystick_cleanup();
