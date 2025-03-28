@@ -18,11 +18,10 @@ static snd_pcm_t *handle = NULL;
 #define NUM_CHANNELS 1
 #define SAMPLE_SIZE (sizeof(short)) // bytes per sample
 
-#define SOURCE_FILE "wave-files/test.wav"
-
-
 static int volume = 0;
 static bool isInitialized = false;
+
+static char* file_path = "";
 
 //
 static _Bool playing = false;
@@ -174,10 +173,11 @@ static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
 }
 
 // When called, this function starts the thread and plays music
-void WavePlayback_startThread(void)
+void WavePlayback_startThread(const char* path)
 {
     if (!playing) {
         playing = true;
+        file_path = path;
         pthread_create(&playbackThreadId, NULL, playbackThread, NULL);
     }
 }
@@ -222,7 +222,7 @@ void* playbackThread(void* _arg)
 
     while (playing) {
         wavedata_t sampleFile;
-        WavePlayback_readWaveFileIntoMemory(SOURCE_FILE, &sampleFile);
+        WavePlayback_readWaveFileIntoMemory(file_path, &sampleFile);
         
         // Prepare the device before playing
         int err = snd_pcm_prepare(handle);
@@ -231,7 +231,7 @@ void* playbackThread(void* _arg)
             break;
         }
         
-        WavePlayback_streamFile(handle, SOURCE_FILE);
+        WavePlayback_streamFile(handle, file_path);
         
         // Clean up the sample data but keep the device open
         free(sampleFile.pData);

@@ -11,7 +11,7 @@ typedef struct {
     short *pData;
 } wavedata_t;
 
-void WavePlayback_startThread(void);
+void WavePlayback_startThread(const char* path);
 int WavePlayback_getVolume(void);
 void WavePlayback_setVolume(int newVolume);
 

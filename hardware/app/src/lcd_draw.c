@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <stdio.h>		//printf()
 #include <stdlib.h>		//exit()
+#include <string.h>
 #include <signal.h>     //signal()
 #include <stdbool.h>
 #include <unistd.h>     //usleep()
@@ -16,6 +17,10 @@
 #include "LCD_1in54.h"
 #include "GUI_Paint.h"
 #include "GUI_BMP.h"
+#include "tcp_server.h"
+
+#include <arpa/inet.h>
+#include <cjson/cJSON.h>
 
 #define THRESHOLD 0.0001
 
@@ -33,16 +38,14 @@ static const int volumeY = 220;
 
 // Screen one
 static int current_volume = 80;
-// static int current_bpm = 120;
 
 // Song Information
-static char* song_name      = "NA"; // "IRIS ASLDKASLMDASOCMLJAOSKXLMAODMLASDJAPSMXOAMOMXMASPDKASDJMPOQJDPMSMXOAKSPXASDLJFAO@)EKFSSSSSFMASDLKFASLDFKOJFAKSWEFCMAS";
-static char* artist_name    = "NA"; // "The Goo Goo Dolls"
-static char* album_name     = "NA"; // "Dizzy up the Girl"
-static char* release_date   = "NA"; // "1998"
-static char* spotify_url    = "NA"; // "https://www.spotify.com/lmaoxd/ajsdhn108jlaksnDASD!9jnaxsou")
-static char* apple_url      = "NA"; // "https://www.apple.com/music/kasANSD1VNK9j1lmsd"
-
+static char* song_name      = "NA";
+static char* artist_name    = "NA"; 
+static char* album_name     = "NA";
+static char* release_date   = "NA";
+static char* spotify_url    = "NA";
+static char* apple_url      = "NA"; 
 static pthread_mutex_t screen_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Function to help truncate strings that won't fit in the buffer
@@ -89,13 +92,13 @@ void Lcd_draw_songScreen(void)
     // Display Album
     char albumBuffer[buffer_size];
     truncate_to_fit(albumBuffer, sizeof(albumBuffer), "Album:", album_name, 8, LCD_1IN54_WIDTH);
-    Paint_DrawString_EN(0, y, albumBuffer, &Font16, WHITE, BLACK);
-    y += 40;
+    Paint_DrawString_EN(0, y, albumBuffer, &Font12, WHITE, BLACK);
+    y += 30;
 
     // // Display Release Date
     char releaseBuffer[buffer_size];
     truncate_to_fit(releaseBuffer, sizeof(releaseBuffer), "Release:", release_date, 8, LCD_1IN54_WIDTH);
-    Paint_DrawString_EN(0, y, releaseBuffer, &Font16, WHITE, BLACK);
+    Paint_DrawString_EN(0, y, releaseBuffer, &Font12, WHITE, BLACK);
     y += 20;
 
     // // Display Spotify URL
@@ -122,7 +125,6 @@ void Lcd_draw_songScreen(void)
 
 static void lcd_draw_volume(void)
 {
-    printf("Drawing Volum!\n");
     Paint_Clear(WHITE);
     char volumeBuffer[buffer_size];
     snprintf(volumeBuffer, sizeof(volumeBuffer), "Volume:%d ", current_volume);
@@ -151,20 +153,100 @@ void Lcd_set_screen(void)
     pthread_mutex_unlock(&screen_mutex);
 }
 
+// Function that updates the information, and tells if we should update screen
+static bool retrieveUpdateMetadata(void)
+{
+    // Retrieve metadata from the server;
+    cJSON *metadata = TCP_getMetadata();
+    if (metadata != NULL) {
+        // Get the title from the metadata
+        cJSON *title = cJSON_GetObjectItem(metadata, "title");
+        cJSON *artist = cJSON_GetObjectItem(metadata, "artist");
+        cJSON *album = cJSON_GetObjectItem(metadata, "album");
+        cJSON *release = cJSON_GetObjectItem(metadata, "release_date");
+        cJSON *spotify = cJSON_GetObjectItem(metadata, "spotify_url");
+        cJSON *apple = cJSON_GetObjectItem(metadata, "apple_music_url");
+
+        char* temp_song_name = "N/A";  // Default value
+        char* temp_artist_name = "N/A";
+        char* temp_album_name = "N/A";
+        char* temp_release_date = "N/A";
+        char* temp_spotify_url = "N/A";
+        char* temp_apple_url = "N/A";
+
+        if (title && artist && album && release && spotify && apple) {
+            temp_song_name = strdup(title->valuestring);  // Allocate and copy title
+            temp_artist_name = strdup(artist->valuestring);
+            temp_album_name = strdup(album->valuestring);
+            temp_release_date = strdup(release->valuestring);
+            temp_spotify_url = strdup(spotify->valuestring);
+            temp_apple_url = strdup(apple->valuestring);
+        }
+
+        // Compare the song, artist, album to see if we should update.
+        if (strcmp(song_name, temp_song_name) != 0 || 
+            strcmp(artist_name, temp_artist_name) != 0  ||
+            strcmp(album_name, temp_album_name) != 0) {
+            // Free the previous song_name memory if it was dynamically allocated
+            if (song_name && song_name != "NA") {
+                free(song_name);
+            }
+            if (artist_name && artist_name != "NA") {
+                free(artist_name);
+            }
+            if (album_name && album_name != "NA") {
+                free(album_name);
+            }
+            if (release_date && release_date != "NA") {
+                free(release_date);
+            }
+            if (spotify_url && spotify_url != "NA") {
+                free(spotify_url);
+            }
+            if (apple_url && apple_url != "NA") {
+                free(apple_url);
+            }
+
+            // Update the song_name with the new value
+            song_name = temp_song_name;
+            artist_name = temp_artist_name;
+            album_name = temp_album_name;
+            release_date = temp_release_date;
+            spotify_url = temp_spotify_url;
+            apple_url = temp_apple_url;
+            return true;
+        } else {
+            // If no change in song name, just free temp_song_name
+            free(temp_song_name);
+            free(temp_artist_name);
+            free(temp_album_name);
+            free(temp_release_date);
+            free(temp_spotify_url);
+            free(temp_apple_url);
+        }
+
+    }
+
+    return false;
+
+}
+
 static void* lcdUpdateFunction(void* arg)
 {
     (void) arg;
     Lcd_draw_songScreen();
     while (updateLCD) {
-        // TODO
-        // When we get new information from song, update the song screen
 
         int temp_volume = WavePlayback_getVolume();
         if (current_volume != temp_volume) {
             current_volume = temp_volume;
             lcd_draw_volume();
         }
-        sleep_for_ms(50);
+
+        if (retrieveUpdateMetadata()) {
+            Lcd_draw_songScreen();
+        }
+        sleep_for_ms(50);  // Add a small delay before checking again
         
     }
     return NULL;
@@ -203,7 +285,6 @@ void Lcd_draw_cleanup()
 {
     assert(isInitialized);
     updateLCD = false;
-    // pthread_cancel(lcdUpdateThread);
     pthread_join(lcdUpdateThread, NULL);
     pthread_mutex_destroy(&screen_mutex);
     // Module Exit
