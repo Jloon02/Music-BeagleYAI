@@ -4,8 +4,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <cjson/cJSON.h>
-
-#define SERVER_IP "192.168.6.1"  // Server IP address
+#include "hal/wavePlayback.h"
+#define SERVER_IP "192.168.6.1" // "192.168.145.1" // "192.168.58.1" // "192.168.6.1"  // Server IP address
 #define SERVER_PORT 12345      // Server port
 #define BUFFER_SIZE 4096       // Buffer size for sending data
 #define METADATA_END "<END_OF_METADATA>"
@@ -170,6 +170,7 @@ void TCP_sendFileToServer(const char* file_path){
     // Receive and save the processed file
     const char *output_file = "wave-files/processed_audio.wav";
     receive_file(client_socket, output_file);
+    WavePlayback_startThread(output_file);
 
     // Close the socket
     close(client_socket);

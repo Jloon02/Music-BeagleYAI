@@ -24,38 +24,40 @@ int main()
     printf("Starting Program.\n");
 
     // Initialize all modules; HAL modules first
-    // WavePlayback_init();
-    // Lcd_draw_init();
-    // Gpio_initialize();
-    // Rotary_encoder_init();
-    // Joystick_init();
-    // JoystickFunction_init();
-    // RotaryEncoderFunction_init();
-    
-    // sleep(10);  // Sleep for 10 seconds
+    WavePlayback_init();
+    Lcd_draw_init();
+    Gpio_initialize();
+    Rotary_encoder_init();
+    Joystick_init();
+    JoystickFunction_init();
+    RotaryEncoderFunction_init();
+    TCP_sendFileToServer("wave-files/nggyucut.wav");
+    while (1 == 1) {
+        
+    }
 
-    // RotaryEncoderFunction_cleanup();
-    // JoystickFunction_cleanup();
-    // Joystick_cleanup();
-    // Rotary_encoder_cleanup();
-    // Gpio_cleanup();
-    // Lcd_draw_cleanup();
-    // WavePlayback_cleanup();
+    RotaryEncoderFunction_cleanup();
+    JoystickFunction_cleanup();
+    Joystick_cleanup();
+    Rotary_encoder_cleanup();
+    Gpio_cleanup();
+    Lcd_draw_cleanup();
+    WavePlayback_cleanup();
     
     
     // start mic then send
-    micHandler_startRecording(5);
-    printf("main has finished recording\n");
+    // micHandler_startRecording(5);
+    // printf("main has finished recording\n");
 
-    char* file_path = micHandler_getRecordingPath();
-    TCP_sendFileToServer(file_path);
-    free(file_path);
-    printf("Cleaning up modules.\n");
+    // char* file_path = micHandler_getRecordingPath();
+    // TCP_sendFileToServer(file_path);
+    // free(file_path);
+    // printf("Cleaning up modules.\n");
 
-    // sample to get metadata and a specific field
-    cJSON *metadata = TCP_getMetadata();
-    cJSON *title = cJSON_GetObjectItem(metadata, "title");
-    printf("Title: %s\n", title ? title->valuestring : "N/A");
+    // // sample to get metadata and a specific field
+    // cJSON *metadata = TCP_getMetadata();
+    // cJSON *title = cJSON_GetObjectItem(metadata, "title");
+    // printf("Title: %s\n", title ? title->valuestring : "N/A");
 
     // Let's do have the program run normally, if 
 

@@ -33,10 +33,6 @@ static void* joystick_running(void* arg)
         } else if (current == DIR_DOWN && volume > 0) {
             WavePlayback_setVolume(volume - 5);
         }
-
-        if (joystick_button_clicked()) {
-            WavePlayback_startThread();
-        }
         
         sleep_for_ms(50);
     }
