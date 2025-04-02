@@ -12,6 +12,7 @@
 #include "timeFunction.h"
 #include "hal/rotary_encoder.h"
 #include "hal/micHandler.h"
+#include "tcp_server.h"
 // This will create a thread that constantly monitors rotary encoder inputs and respond appropriately
 
 // Max record for 30 seconds and min for 2 second
@@ -24,7 +25,7 @@ static bool keepRunning = false;
 
 static int duration = 5; // Default recording duration is 5 seconds
 
-static void* sendRecordingToServer() {
+static void sendRecordingToServer() {
     char* file_path = micHandler_getRecordingPath();
     TCP_sendFileToServer(file_path);
     free(file_path);
