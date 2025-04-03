@@ -8,7 +8,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <stdbool.h>
-
+#include <math.h>
 
 static snd_pcm_t *handle = NULL;
 #define DEFAULT_VOLUME 80
@@ -19,6 +19,7 @@ static snd_pcm_t *handle = NULL;
 #define SAMPLE_SIZE (sizeof(short)) // bytes per sample
 
 static int volume = 0;
+static float currentAmplitude = 0.0f;
 static bool isInitialized = false;
 
 static char* file_path = "";
@@ -152,10 +153,18 @@ static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
         pthread_mutex_lock(&audioMutex);
         float volumeFactor = volume / 100.0f; // convert volume to a scale 0 to 1
         pthread_mutex_unlock(&audioMutex);
-
+        
+        // Calculate amplitude for this buffer
+        float maxAmplitude = 0.0f;
         for (size_t i = 0; i < samplesRead; i++) {
             buffer[i] = (short)(buffer[i] * volumeFactor);
+            float sample = (float)buffer[i] / 32768.f; // Normalizing to [-1.0, 1.0]
+            if (fabsf(sample) > maxAmplitude) {
+                maxAmplitude = fabsf(sample);
+            }
         }
+
+        currentAmplitude = maxAmplitude;
 
         // Write the chunk of audio data to the PCM device.
         snd_pcm_sframes_t frames = snd_pcm_writei(handle, buffer, samplesRead);
@@ -170,6 +179,10 @@ static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
     }
 
     fclose(file);
+}
+
+float WavePlayback_getCurrentAmplitude(void) {
+    return currentAmplitude;
 }
 
 // When called, this function starts the thread and plays music

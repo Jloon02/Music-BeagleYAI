@@ -1,6 +1,6 @@
 # CMake Build Configuration for root of project
 cmake_minimum_required(VERSION 3.18)
-project(my_hello_world 
+project(final_project 
     VERSION 1.0 
     DESCRIPTION "Final Project" 
     LANGUAGES C
@@ -8,6 +8,8 @@ project(my_hello_world
 
 # Compiler options (inherited by sub-folders)
 set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_COMPILER "aarch64-linux-gnu-gcc")
+
 add_compile_options(-Wall -Wpedantic -Wextra) #-Werror
 add_compile_options(-fdiagnostics-color)
 

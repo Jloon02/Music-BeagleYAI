@@ -18,10 +18,28 @@
 
 #include "hal/micHandler.h"
 #include "tcp_server.h"
+#include "amplitude_visualizer.h"
+
+void audio_amplitude_test() {
+    WavePlayback_init();
+    AmplitudeVisualizer_init();
+
+    WavePlayback_startThread();
+
+    while(1) {
+        float amp = WavePlayback_getCurrentAmplitude();
+        printf("AMP = %f\n", amp);
+        sleep_for_ms(100);
+    }
+
+    AmplitudeVisualizer_cleanup();
+    WavePlayback_cleanup();
+}
 
 int main()
 {
     printf("Starting Program.\n");
+    audio_amplitude_test();
 
     // Initialize all modules; HAL modules first
     WavePlayback_init();
@@ -53,7 +71,7 @@ int main()
     // free(file_path);
     // printf("Cleaning up modules.\n");
 
-    // // sample to get metadata and a specific field
+    // sample to get metadata and a specific field
     // cJSON *metadata = TCP_getMetadata();
     // cJSON *title = cJSON_GetObjectItem(metadata, "title");
     // printf("Title: %s\n", title ? title->valuestring : "N/A");
