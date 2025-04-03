@@ -18,9 +18,11 @@
 
 #include "hal/micHandler.h"
 #include "tcp_server.h"
+#include "amplitude_visualizer.h"
 
 void audio_amplitude_test() {
     WavePlayback_init();
+    AmplitudeVisualizer_init();
 
     WavePlayback_startThread();
 
@@ -30,6 +32,7 @@ void audio_amplitude_test() {
         sleep_for_ms(100);
     }
 
+    AmplitudeVisualizer_cleanup();
     WavePlayback_cleanup();
 }
 
