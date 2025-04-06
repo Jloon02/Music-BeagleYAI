@@ -10,13 +10,14 @@
 #define MIC_DEVICE "hw:CARD=Device,DEV=0"
 #define MIC_FORMAT "S16_LE"
 #define MIC_RATE "44100"
-#define DIRECTORY "wave-files/"
+#define DIRECTORY "MusicBoard-audio-files/"
 
-int counter=0;
+// 
+// int counter=0;
 
 char* micHandler_getRecordingPath(){
   char *filename = malloc(64);
-  snprintf(filename, 64, "%sBeagle_recording_%d.wav", DIRECTORY, counter);
+  snprintf(filename, 64, "%sBeagle_recording.wav", DIRECTORY);
   return filename;
 }
 
@@ -28,14 +29,14 @@ void micHandler_startRecording(int duration){
 
   // Parent
   if(pid > 0){
-    counter++;  // Increment the global counter in the parent
+    // counter++;  // Increment the global counter in the parent
     printf("Recording in progress...\n");
     wait(NULL);  // Wait for child process to finish
     printf("Recording complete.\n");
   }
   // Child process
   else{
-    counter++;
+    // counter++;
     char *filename = micHandler_getRecordingPath();
 
     char duration_str[16];
