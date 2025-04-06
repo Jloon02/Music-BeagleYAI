@@ -34,11 +34,11 @@ add_custom_command(TARGET music_board POST_BUILD
 
 add_custom_command(TARGET music_board POST_BUILD 
   COMMAND "${CMAKE_COMMAND}" -E copy_directory
-     "${CMAKE_SOURCE_DIR}/wave-files"
-     "~/cmpt433/public/myApps/wave-files" 
-  COMMAND chmod u+w "~/cmpt433/public/myApps/wave-files"
-  COMMAND chmod 777 "~/cmpt433/public/myApps/wave-files"
-  COMMENT "Copying wave-files to public NFS directory and giving permissions")
+     "${CMAKE_SOURCE_DIR}/MusicBoard-audio-files"
+     "~/cmpt433/public/myApps/MusicBoard-audio-files" 
+  COMMAND chmod u+w "~/cmpt433/public/myApps/MusicBoard-audio-files"
+  COMMAND chmod 777 "~/cmpt433/public/myApps/MusicBoard-audio-files"
+  COMMENT "Copying MusicBoard-audio-files to public NFS directory and giving permissions")
 
 
   # Copy the Server folder to NFS

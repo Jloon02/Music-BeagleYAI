@@ -20,26 +20,26 @@
 #include "tcp_server.h"
 #include "amplitude_visualizer.h"
 
-void audio_amplitude_test() {
-    WavePlayback_init();
-    AmplitudeVisualizer_init();
+// void audio_amplitude_test() {
+//     WavePlayback_init();
+//     AmplitudeVisualizer_init();
 
-    WavePlayback_startThread();
+//     WavePlayback_startThread();
 
-    while(1) {
-        float amp = WavePlayback_getCurrentAmplitude();
-        printf("AMP = %f\n", amp);
-        sleep_for_ms(100);
-    }
+//     while(1) {
+//         float amp = WavePlayback_getCurrentAmplitude();
+//         printf("AMP = %f\n", amp);
+//         sleep_for_ms(100);
+//     }
 
-    AmplitudeVisualizer_cleanup();
-    WavePlayback_cleanup();
-}
+//     AmplitudeVisualizer_cleanup();
+//     WavePlayback_cleanup();
+// }
 
 int main()
 {
     printf("Starting Program.\n");
-    audio_amplitude_test();
+    // audio_amplitude_test();
 
     // Initialize all modules; HAL modules first
     WavePlayback_init();
@@ -49,7 +49,7 @@ int main()
     Joystick_init();
     JoystickFunction_init();
     RotaryEncoderFunction_init();
-    TCP_sendFileToServer("wave-files/nggyucut.wav");
+    // TCP_sendFileToServer("wave-files/nggyucut.wav");
     while (1 == 1) {
         
     }
