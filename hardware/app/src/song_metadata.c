@@ -68,8 +68,9 @@ void SongMetadata_readMetadataFile(char* metadata_file_name){
 }
 
 void SongMetadata_nextSong(){
-	if(metadata_index < metadata_array_size){
+	if(metadata_index < metadata_array_size - 1){
 		metadata_index++;
+        play_song = false;
 		loadMetadata();
 	}
 }
@@ -77,6 +78,7 @@ void SongMetadata_nextSong(){
 void SongMetadata_previousSong(){
 	if(metadata_index > 0){
 		metadata_index--;
+        play_song = false;
 		loadMetadata();
 	}
 }
@@ -92,7 +94,6 @@ void SongMetadata_togglePlay(){
         WavePlayback_startThread(current_song);
     }
     else if(play_song){
-        printf("playing\n");
         if(!is_paused){
             WavePlayback_pausePlayback();
             is_paused = true;
