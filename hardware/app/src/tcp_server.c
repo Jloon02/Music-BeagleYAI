@@ -5,7 +5,10 @@
 #include <stdbool.h>
 #include <arpa/inet.h>
 #include <cjson/cJSON.h>
+
+#include "song_metadata.h"
 #include "hal/wavePlayback.h"
+
 #define SERVER_IP "192.168.6.1" // "192.168.145.1" // "192.168.58.1" // "192.168.6.1"  // Server IP address
 #define SERVER_PORT 12345      // Server port
 #define BUFFER_SIZE 4096       // Buffer size for sending data
@@ -17,6 +20,7 @@
 char metadata[BUFFER_SIZE];
 cJSON *metadata_json = NULL;
 size_t metadata_size = 0;
+char *output_file = NULL;
 
 void parse_json(const char *json_str){
     // get metadata from json_str
@@ -26,6 +30,29 @@ void parse_json(const char *json_str){
         return;
     }
     metadata_json = root;
+
+    // Update output file to "title-artist"
+    cJSON *title = cJSON_GetObjectItem(root, "title");
+    cJSON *artist = cJSON_GetObjectItem(root, "artist");
+    if (title && artist && cJSON_IsString(title)) {
+        if (output_file) {
+            free(output_file);
+        }
+
+        output_file = malloc(BUFFER_SIZE);
+        if (output_file == NULL) {
+            perror("Failed to allocate memory for output_file");
+            return;
+        }
+
+        snprintf(output_file, BUFFER_SIZE, "MusicBoard-audio-files/%s-%s.wav", 
+            title->valuestring,
+            artist->valuestring
+        );
+    } else {
+        printf("No \"title\" field found in metadata\n");
+    }
+    printf("%s\n", output_file);
 
     FILE *file = fopen(METADATA_FILE, "r");
     cJSON *json_array = NULL;
@@ -101,30 +128,25 @@ void send_file(int client_socket, const char *file_path) {
     printf("File sent successfully: %s\n", file_path);
 }
 
-bool receive_file(int client_socket, const char *output_file) {
+bool receive_file(int client_socket) {
     char buffer[BUFFER_SIZE + 1]; // +1 for null-termination
     FILE *file = NULL;
     int metadata_received = 0;
     size_t bytes_received;
     size_t metadata_end_pos = 0;
     size_t total_bytes_received = 0;
+    size_t file_data_start = 0;
+    size_t remaining_bytes = 0;
     
     // Reset global metadata for each new file
     metadata[0] = '\0';
     metadata_size = 0;
-
-    // Open the output file for writing
-    file = fopen(output_file, "wb");
-    if (!file) {
-        perror("Failed to open output file");
-        return false;
-    }
     
     // receive metadata until we find the end marker
     while (!metadata_received) {
         bytes_received = recv(client_socket, buffer, BUFFER_SIZE, 0);
         if (bytes_received <= 0) {
-            perror("Error receiving data");
+            printf("No match found\n");
             return false;
         }
 
@@ -144,13 +166,8 @@ bool receive_file(int client_socket, const char *output_file) {
             metadata_received = 1;
             
             // Write the remaining data after the marker to the file
-            size_t file_data_start = metadata_end_pos + METADATA_END_LEN;
-            size_t remaining_bytes = bytes_received - file_data_start;
-            
-            if (remaining_bytes > 0) {
-                fwrite(buffer + file_data_start, 1, remaining_bytes, file);
-                total_bytes_received += remaining_bytes;
-            }
+            file_data_start = metadata_end_pos + METADATA_END_LEN;
+            remaining_bytes = bytes_received - file_data_start;
         } 
         // No end marker yet, append entire chunk to metadata
         else {
@@ -163,6 +180,19 @@ bool receive_file(int client_socket, const char *output_file) {
     // Print the received metadata
     printf("Received metadata:\n%s\n", metadata);
     parse_json(metadata);
+
+    // Open the output file for writing
+    file = fopen(output_file, "wb");
+    if (!file) {
+        perror("Failed to open output file");
+        return false;
+    }
+
+    // write remaining bytes into file
+    if (remaining_bytes > 0) {
+        fwrite(buffer + file_data_start, 1, remaining_bytes, file);
+        total_bytes_received += remaining_bytes;
+    }
 
     // Continue receiving file data
     while (1) {
@@ -218,10 +248,11 @@ void TCP_sendFileToServer(const char* file_path){
     // receive_metadata(client_socket);
 
     // Receive and save the processed file
-    const char *output_file = "MusicBoard-audio-files/processed_audio.wav";
-    if(receive_file(client_socket, output_file)){
+    if(receive_file(client_socket)){
         WavePlayback_startThread(output_file);
     }
+
+   SongMetadata_readMetadataFile(METADATA_FILE);
 
     // Close the socket
     close(client_socket);

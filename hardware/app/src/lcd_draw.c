@@ -18,6 +18,7 @@
 #include "GUI_Paint.h"
 #include "GUI_BMP.h"
 #include "tcp_server.h"
+#include "song_metadata.h"
 
 #include <arpa/inet.h>
 #include <cjson/cJSON.h>
@@ -157,7 +158,7 @@ void Lcd_set_screen(void)
 static bool retrieveUpdateMetadata(void)
 {
     // Retrieve metadata from the server;
-    cJSON *metadata = TCP_getMetadata();
+    cJSON *metadata = SongMetadata_getMetadata();
     if (metadata != NULL) {
         // Get the title from the metadata
         cJSON *title = cJSON_GetObjectItem(metadata, "title");
@@ -167,20 +168,44 @@ static bool retrieveUpdateMetadata(void)
         cJSON *spotify = cJSON_GetObjectItem(metadata, "spotify_url");
         cJSON *apple = cJSON_GetObjectItem(metadata, "apple_music_url");
 
-        char* temp_song_name = "N/A";  // Default value
-        char* temp_artist_name = "N/A";
-        char* temp_album_name = "N/A";
-        char* temp_release_date = "N/A";
-        char* temp_spotify_url = "N/A";
-        char* temp_apple_url = "N/A";
+        // Temporary variables with default values (not yet allocated)
+        char *temp_song_name = NULL;
+        char *temp_artist_name = NULL;
+        char *temp_album_name = NULL;
+        char *temp_release_date = NULL;
+        char *temp_spotify_url = NULL;
+        char *temp_apple_url = NULL;
 
-        if (title && artist && album && release && spotify && apple) {
-            temp_song_name = strdup(title->valuestring);  // Allocate and copy title
+        // Allocate and copy only if the field is a valid string
+        if (cJSON_IsString(title) && title->valuestring != NULL) {
+            temp_song_name = strdup(title->valuestring);
+        } else {
+            temp_song_name = strdup("N/A");
+        }
+        if (cJSON_IsString(artist) && artist->valuestring != NULL) {
             temp_artist_name = strdup(artist->valuestring);
+        } else {
+            temp_artist_name = strdup("N/A");
+        }
+        if (cJSON_IsString(album) && album->valuestring != NULL) {
             temp_album_name = strdup(album->valuestring);
+        } else {
+            temp_album_name = strdup("N/A");
+        }
+        if (cJSON_IsString(release) && release->valuestring != NULL) {
             temp_release_date = strdup(release->valuestring);
+        } else {
+            temp_release_date = strdup("N/A");
+        }
+        if (cJSON_IsString(spotify) && spotify->valuestring != NULL) {
             temp_spotify_url = strdup(spotify->valuestring);
+        } else {
+            temp_spotify_url = strdup("N/A");
+        }
+        if (cJSON_IsString(apple) && apple->valuestring != NULL) {
             temp_apple_url = strdup(apple->valuestring);
+        } else {
+            temp_apple_url = strdup("N/A");
         }
 
         // Compare the song, artist, album to see if we should update.

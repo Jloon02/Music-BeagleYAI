@@ -13,11 +13,13 @@
 #include "hal/joystick.h"
 #include "lcd_draw.h"
 #include "joystickFunctionalities.h"
+#include "song_metadata.h"
 // This will create a thread that constantly monitors joystick inputs and respond appropriately
 
 static pthread_t joystickThread;
 static bool isInitialized = false;
 static bool keepRunning = false;
+static bool playSong = false;
 
 static void* joystick_running(void* arg)
 {
@@ -33,6 +35,20 @@ static void* joystick_running(void* arg)
         } else if (current == DIR_DOWN && volume > 0) {
             WavePlayback_setVolume(volume - 5);
         }
+        else if (current == DIR_RIGHT) {
+            SongMetadata_nextSong();
+        }
+        else if (current == DIR_LEFT) {
+            SongMetadata_previousSong();
+        }
+
+        // used to test getting metadata
+        // if (current == DIR_UP) {
+        //     SongMetadata_nextSong();
+        // }
+        // else if (current == DIR_DOWN) {
+        //     SongMetadata_previousSong();
+        // }
         
         sleep_for_ms(50);
     }

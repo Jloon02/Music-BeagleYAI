@@ -8,17 +8,18 @@
 #include "hal/gpio.h"
 #include "hal/i2c.h"
 #include "hal/rotary_encoder.h"
-#include "timeFunction.h"
-#include "rotaryEncoderFunctionalities.h"
 // #include "hal/audioMixer.h"
 #include "hal/joystick.h"
-#include "joystickFunctionalities.h"
-#include "lcd_draw.h"
+#include "hal/micHandler.h"
 #include "hal/wavePlayback.h"
 
-#include "hal/micHandler.h"
+#include "rotaryEncoderFunctionalities.h"
+#include "timeFunction.h"
+#include "lcd_draw.h"
+#include "joystickFunctionalities.h"
 #include "tcp_server.h"
 #include "amplitude_visualizer.h"
+#include "song_metadata.h"
 
 // void audio_amplitude_test() {
 //     WavePlayback_init();
@@ -39,6 +40,7 @@
 int main()
 {
     printf("Starting Program.\n");
+    SongMetadata_readMetadataFile("MusicBoard-audio-files/saved_metadata");
     // audio_amplitude_test();
 
     // Initialize all modules; HAL modules first
