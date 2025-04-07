@@ -10,6 +10,7 @@
 void SongMetadata_readMetadataFile(char* metadata_file_name);
 void SongMetadata_nextSong();
 void SongMetadata_previousSong();
+void SongMetadata_togglePlay();
 cJSON* SongMetadata_getMetadata();
 
 #endif

@@ -9,10 +9,16 @@
 #include <unistd.h>
 #include "cJSON.h"
 
+#include <hal/wavePlayback.h>
+
+#define SONG_TITLE_BUFFER_SIZE 128
+
 static cJSON *metadata_array = 	NULL;
 static cJSON *current_metadata = NULL;
+static char current_song[SONG_TITLE_BUFFER_SIZE];
 static int metadata_array_size=0;
 static int metadata_index = 0;
+static bool play_song = false;
 
 void loadMetadata();
 
@@ -78,9 +84,28 @@ cJSON* SongMetadata_getMetadata(){
 	return current_metadata;
 }
 
+void SongMetadata_togglePlay(){
+    printf("playing\n");
+    if(!play_song && current_metadata){
+        play_song = true;
+        WavePlayback_startThread(current_song);
+    }
+    else{
+        printf("STOP\n");
+        WavePlayback_stopPlayback();
+    }
+}
+
 void loadMetadata(){
     if (metadata_array) {
 		current_metadata = cJSON_GetArrayItem(metadata_array, metadata_index);
+        
+        cJSON *title = cJSON_GetObjectItem(current_metadata, "title");
+        cJSON *artist = cJSON_GetObjectItem(current_metadata, "artist");
+        const char *title_str = title->valuestring;
+        const char *artist_str = artist->valuestring;
+        snprintf(current_song, SONG_TITLE_BUFFER_SIZE, 
+            "MusicBoard-audio-files/%s-%s.wav", title_str, artist_str);
 		// cJSON *title = cJSON_GetObjectItem(current_metadata, "title");
 		// if (cJSON_IsString(title)) {
 		// 	printf("Song Title: %s\n", title->valuestring);

@@ -42,6 +42,10 @@ static void* joystick_running(void* arg)
             SongMetadata_previousSong();
         }
 
+        if(joystick_button_clicked()){
+            SongMetadata_togglePlay();
+        }
+
         // used to test getting metadata
         // if (current == DIR_UP) {
         //     SongMetadata_nextSong();

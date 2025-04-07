@@ -19,4 +19,7 @@ float WavePlayback_getCurrentAmplitude(void);
 void WavePlayback_init(void);
 void WavePlayback_cleanup(void);
 
+void WavePlayback_startThread(const char* path);
+void WavePlayback_stopPlayback(void);
+
 #endif

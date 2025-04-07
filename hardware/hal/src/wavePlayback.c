@@ -196,7 +196,7 @@ void WavePlayback_startThread(const char* path)
 }
 
 // Function to stop playback, might be needed later if we want user to be able to stop music, need to remove static for that
-static void WavePlayback_stopPlayback(void)
+void WavePlayback_stopPlayback(void)
 {
     playing = false;
     pthread_join(playbackThreadId, NULL);
