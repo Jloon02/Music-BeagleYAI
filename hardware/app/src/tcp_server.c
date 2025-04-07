@@ -239,20 +239,16 @@ void TCP_sendFileToServer(const char* file_path){
         close(client_socket);
         return;
     }
-    // printf("Connected to server at %s:%d\n", SERVER_IP, SERVER_PORT);
 
     // Send the WAV file
     send_file(client_socket, file_path);
 
-    // Receive and parse metadata - in json
-    // receive_metadata(client_socket);
-
     // Receive and save the processed file
     if(receive_file(client_socket)){
         WavePlayback_startThread(output_file);
+        SongMetadata_readMetadataFile(METADATA_FILE);
     }
 
-   SongMetadata_readMetadataFile(METADATA_FILE);
 
     // Close the socket
     close(client_socket);

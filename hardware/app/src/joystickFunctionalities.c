@@ -36,23 +36,17 @@ static void* joystick_running(void* arg)
             WavePlayback_setVolume(volume - 5);
         }
         else if (current == DIR_RIGHT) {
+            printf("right\n");
             SongMetadata_nextSong();
         }
         else if (current == DIR_LEFT) {
+            printf("left\n");
             SongMetadata_previousSong();
         }
 
         if(joystick_button_clicked()){
             SongMetadata_togglePlay();
         }
-
-        // used to test getting metadata
-        // if (current == DIR_UP) {
-        //     SongMetadata_nextSong();
-        // }
-        // else if (current == DIR_DOWN) {
-        //     SongMetadata_previousSong();
-        // }
         
         sleep_for_ms(50);
     }

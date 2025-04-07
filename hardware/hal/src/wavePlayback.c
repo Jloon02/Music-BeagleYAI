@@ -159,6 +159,9 @@ static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
             snd_pcm_pause(handle, 0); // Resume ALSA playback
             if (!playing) break; // Exit if stopped while paused
         }
+        if (!playing) {
+            break;
+        }
         
         pthread_mutex_lock(&audioMutex);
         float volumeFactor = volume / 100.0f; // convert volume to a scale 0 to 1
@@ -198,6 +201,7 @@ float WavePlayback_getCurrentAmplitude(void) {
 // When called, this function starts the thread and plays music
 void WavePlayback_startThread(const char* path)
 {
+    printf("playing!\n");
     if (!playing) {
         playing = true;
         file_path = path;
@@ -218,6 +222,7 @@ void WavePlayback_stopPlayback(void)
             snd_pcm_drain(handle);
             snd_pcm_prepare(handle);
         }
+        printf("done\n");
     }
 }
 

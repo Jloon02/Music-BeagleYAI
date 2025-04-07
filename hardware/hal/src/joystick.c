@@ -18,7 +18,6 @@
 
 // the push button is GPIO5 -> gpiochip2 15
 // Which channel to sample?
-#define SELECTED_CHANNEL_CONF TLA2024_CHANNEL_CONF_0
 #define GPIO_CHIP_JOYSTICKBUTTON 2
 #define GPIO_PUSH_PIN 15  // GPIO pin number for button
 
@@ -42,16 +41,37 @@ static int joystick_read_y() {
     return value;
 }
 
+
+static int joystick_read_x() {
+    int i2c_file_desc = I2C_init_bus(I2CDRV_LINUX_BUS, I2C_DEVICE_ADDRESS_JOYSTICK);
+
+    // Select the channel
+    I2C_write_reg16(i2c_file_desc, REG_CONFIGURATION, TLA2024_CHANNEL_CONF_1);
+    uint16_t raw_read = I2C_read_reg16(i2c_file_desc, REG_DATA);
+    close(i2c_file_desc);
+
+    // Convert byte order and shift bits into place
+    uint16_t value = ((raw_read & 0xFF) << 8) | ((raw_read & 0xFF00) >> 8);
+    value = value >> 4;
+
+    return value;
+} 
+
 static int normalize(int value, int x_min, int x_max) {
     return ((value - x_min) * 200 / (x_max - x_min)) - 100;
 }
 
 Direction get_direction() {
+    int xValue = normalize(joystick_read_x(), LEFT, RIGHT);
     int yValue = normalize(joystick_read_y(), UP, DOWN);
-    if (yValue <= -THRESHOLD) {
+    if (xValue <= -THRESHOLD) {
         return DIR_UP;
-    } else if (yValue >= THRESHOLD) {
+    } else if (xValue >= THRESHOLD) {
         return DIR_DOWN;
+    } else if (yValue <= -THRESHOLD) {
+        return DIR_LEFT;
+    } else if (yValue >= THRESHOLD) {
+        return DIR_RIGHT;
     } else {
         return DIR_NONE;
     }
