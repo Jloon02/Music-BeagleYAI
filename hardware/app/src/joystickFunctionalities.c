@@ -36,11 +36,9 @@ static void* joystick_running(void* arg)
             WavePlayback_setVolume(volume - 5);
         }
         else if (current == DIR_RIGHT) {
-            printf("right\n");
             SongMetadata_nextSong();
         }
         else if (current == DIR_LEFT) {
-            printf("left\n");
             SongMetadata_previousSong();
         }
 

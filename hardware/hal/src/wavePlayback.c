@@ -201,7 +201,6 @@ float WavePlayback_getCurrentAmplitude(void) {
 // When called, this function starts the thread and plays music
 void WavePlayback_startThread(const char* path)
 {
-    printf("playing!\n");
     if (!playing) {
         playing = true;
         file_path = path;
