@@ -19,6 +19,7 @@ static char current_song[SONG_TITLE_BUFFER_SIZE];
 static int metadata_array_size=0;
 static int metadata_index = 0;
 static bool play_song = false;
+static bool is_paused = false;
 
 void loadMetadata();
 
@@ -85,14 +86,22 @@ cJSON* SongMetadata_getMetadata(){
 }
 
 void SongMetadata_togglePlay(){
-    printf("playing\n");
     if(!play_song && current_metadata){
         play_song = true;
+        is_paused = false;
         WavePlayback_startThread(current_song);
     }
-    else{
-        printf("STOP\n");
-        WavePlayback_stopPlayback();
+    else if(play_song){
+        printf("playing\n");
+        if(!is_paused){
+            WavePlayback_pausePlayback();
+            is_paused = true;
+        }
+        else{
+            WavePlayback_resumePlayback();
+            is_paused = false;
+        }
+
     }
 }
 
@@ -106,6 +115,8 @@ void loadMetadata(){
         const char *artist_str = artist->valuestring;
         snprintf(current_song, SONG_TITLE_BUFFER_SIZE, 
             "MusicBoard-audio-files/%s-%s.wav", title_str, artist_str);
+
+        WavePlayback_stopPlayback();
 		// cJSON *title = cJSON_GetObjectItem(current_metadata, "title");
 		// if (cJSON_IsString(title)) {
 		// 	printf("Song Title: %s\n", title->valuestring);

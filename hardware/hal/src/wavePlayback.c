@@ -25,7 +25,8 @@ static bool isInitialized = false;
 static char* file_path = "";
 
 //
-static _Bool playing = false;
+static bool paused = false; 
+static bool playing = false;
 static pthread_t playbackThreadId;
 static pthread_mutex_t audioMutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -147,9 +148,18 @@ static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
     // Define the buffer size, which is the number of samples to read at once.
     const int BUFFER_SIZE = 4096;   // Prev value: 4096
     short buffer[BUFFER_SIZE];
-
     size_t samplesRead;
+
     while ((samplesRead = fread(buffer, SAMPLE_SIZE, BUFFER_SIZE, file)) > 0) {
+        if (paused) {
+            snd_pcm_pause(handle, 1); // Pause ALSA playback
+            while (paused && playing) {
+                usleep(10000); // Sleep 10ms to avoid busy-waiting
+            }
+            snd_pcm_pause(handle, 0); // Resume ALSA playback
+            if (!playing) break; // Exit if stopped while paused
+        }
+        
         pthread_mutex_lock(&audioMutex);
         float volumeFactor = volume / 100.0f; // convert volume to a scale 0 to 1
         pthread_mutex_unlock(&audioMutex);
@@ -198,13 +208,16 @@ void WavePlayback_startThread(const char* path)
 // Function to stop playback, might be needed later if we want user to be able to stop music, need to remove static for that
 void WavePlayback_stopPlayback(void)
 {
-    playing = false;
-    pthread_join(playbackThreadId, NULL);
-    
-    // Drain and prepare the device for next use
-    if (handle) {
-        snd_pcm_drain(handle);
-        snd_pcm_prepare(handle);
+    if(playing){
+        playing = false;
+        paused = false;
+        pthread_join(playbackThreadId, NULL);
+        
+        // Drain and prepare the device for next use
+        if (handle) {
+            snd_pcm_drain(handle);
+            snd_pcm_prepare(handle);
+        }
     }
 }
 
@@ -224,6 +237,20 @@ void WavePlayback_cleanup(void)
     pthread_join(playbackThreadId, NULL);
 
     WavePlayback_stopPlayback();
+}
+
+void WavePlayback_pausePlayback(void)
+{
+    if (playing && !paused) {
+        paused = true;
+    }
+}
+
+void WavePlayback_resumePlayback(void)
+{
+    if (playing && paused) {
+        paused = false;
+    }
 }
 
 void* playbackThread(void* _arg)
