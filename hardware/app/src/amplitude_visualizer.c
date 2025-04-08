@@ -11,6 +11,7 @@
 
 #include "r5_shared_data.h"
 #include "hal/wavePlayback.h"
+#include "amplitude_visualizer.h"
 
 // General R5 Memory Sharing Routine
 // ----------------------------------------------------------------
@@ -70,6 +71,24 @@ void AmplitudeVisualizer_init(void) {
         perror("Failed to create amplitude visualization thread");
         exit(EXIT_FAILURE);
     }
+}
+
+void AmplitudeVisualizer_cleanup(void) {
+    assert(isInitialized);
+
+    // Signal the thread to stop
+    isRunning = false;
+    
+    // Wait for the thread to finish
+    if (pthread_join(AmplitudeVisualizer_threadId, NULL) != 0) {
+        perror("Failed to join amplitude visualization thread\n");
+    }
+
+    // Reset state variables
+    isInitialized = false;
+    smoothedAmplitude = 0.0f;
+    
+    printf("Amplitude visualizer cleaned up successfully\n");
 }
 
 void* AmplitudeVisualizer_thread(void *arg) {

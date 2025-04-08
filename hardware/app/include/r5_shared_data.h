@@ -9,7 +9,7 @@
 //   (hangs when accessing memory via a struct pointer).
 // - Therefore, using an array.
 
-#define MSG_OFFSET 0
+#define MSG_OFFSET 0x7000
 #define MSG_SIZE   32
 #define AMP_OFFSET (MSG_OFFSET + sizeof(uint32_t))
 
