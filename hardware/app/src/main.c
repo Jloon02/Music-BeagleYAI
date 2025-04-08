@@ -9,6 +9,7 @@
 #include "hal/i2c.h"
 #include "hal/rotary_encoder.h"
 // #include "hal/audioMixer.h"
+#include "buttonsFunctionalities.h"
 #include "hal/joystick.h"
 #include "hal/micHandler.h"
 #include "hal/wavePlayback.h"
@@ -48,9 +49,9 @@ int main()
     WavePlayback_init();
     Lcd_draw_init();
     Gpio_initialize();
-    Buttons_init();
     Rotary_encoder_init();
     Joystick_init();
+    ButtonFunctionalities_init();
     JoystickFunction_init();
     RotaryEncoderFunction_init();
     // TCP_sendFileToServer("wave-files/nggyucut.wav");
@@ -59,9 +60,9 @@ int main()
     }
     RotaryEncoderFunction_cleanup();
     JoystickFunction_cleanup();
+    ButtonFunctionalities_cleanup();
     Joystick_cleanup();
     Rotary_encoder_cleanup();
-    Buttons_cleanup();
     Gpio_cleanup();
     Lcd_draw_cleanup();
     WavePlayback_cleanup();

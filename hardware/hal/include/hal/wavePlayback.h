@@ -15,6 +15,8 @@ void WavePlayback_startThread(const char* path);
 int WavePlayback_getVolume(void);
 void WavePlayback_setVolume(int newVolume);
 float WavePlayback_getCurrentAmplitude(void);
+void WavePlayback_jumpForward(void);
+void WavePlayback_jumpBackward(void);
 
 void WavePlayback_init(void);
 void WavePlayback_cleanup(void);

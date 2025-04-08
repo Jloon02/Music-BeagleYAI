@@ -9,6 +9,7 @@
 #include <sys/ioctl.h>
 #include <time.h>
 #include <unistd.h>
+#include <pthread.h>
 
 #include "hal/buttons.h"
 #include "hal/gpio.h"
@@ -21,6 +22,7 @@
 
 static bool keepRunning = false;
 static pthread_t buttons_thread; // Thread handle
+static pthread_mutex_t buttonsMutex = PTHREAD_MUTEX_INITIALIZER;
 
 struct GpioLine* s_line_right = NULL;
 struct GpioLine* s_line_left = NULL;
@@ -29,36 +31,40 @@ static bool isInitialized = false;
 static bool right_clicked = false;
 static bool left_clicked = false;
 
-// TODO: add mutex??
 bool Buttons_get_right(void) 
 {
-    return right_clicked;
+    pthread_mutex_lock(&buttonsMutex);
+    bool value = right_clicked;
+    pthread_mutex_unlock(&buttonsMutex);
+    return value;
 }
 
 bool Buttons_get_left(void) 
 {
-    return left_clicked;
+    pthread_mutex_lock(&buttonsMutex);
+    bool value = left_clicked;
+    pthread_mutex_unlock(&buttonsMutex);
+    return value;
 }
 
 void Buttons_set_right(bool status)
 {
+    pthread_mutex_lock(&buttonsMutex);
     right_clicked = status;
+    pthread_mutex_unlock(&buttonsMutex);
 }
 
 void Buttons_set_left(bool status)
 {
+    pthread_mutex_lock(&buttonsMutex);
     left_clicked = status;
+    pthread_mutex_unlock(&buttonsMutex);
 }
 
 static void buttons_handle_click(int currPush, int* prevPush, bool* click) {
     if (currPush != *prevPush) {
         if (currPush == 0 && !(*click)) {
             *click = true;
-            if (click == &right_clicked) {
-                printf("Buttons: Clicked right\n");
-            } else if (click == &left_clicked) {
-                printf("Buttons: Clicked left\n");
-            }
         } 
     }
     *prevPush = currPush;
@@ -75,8 +81,13 @@ static void* buttons_running(void* arg)
     while (keepRunning) {
         int currRight = gpiod_line_get_value((struct gpiod_line*)s_line_right);
         int currLeft = gpiod_line_get_value((struct gpiod_line*)s_line_left);
+
+        pthread_mutex_lock(&buttonsMutex);
         buttons_handle_click(currRight, &prevRight, &right_clicked);
         buttons_handle_click(currLeft, &prevLeft, &left_clicked);
+        pthread_mutex_unlock(&buttonsMutex);
+
+        usleep(10000); // 10 ms delay to avoid busy-waiting
     }
 
     return NULL;

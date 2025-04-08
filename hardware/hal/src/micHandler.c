@@ -7,7 +7,7 @@
 // COMMAND
 // arecord -D hw:CARD=Device,DEV=0 -f S16_LE -r 44100 --duration=10 test.wav
 
-#define MIC_DEVICE "hw:CARD=Device,DEV=0"
+#define MIC_DEVICE "hw:CARD=SoloCast,DEV=0" //"hw:CARD=Device,DEV=0"
 #define MIC_FORMAT "S16_LE"
 #define MIC_RATE "44100"
 #define DIRECTORY "MusicBoard-audio-files/"
@@ -47,6 +47,7 @@ void micHandler_startRecording(int duration){
       "-D", MIC_DEVICE,
       "-f", MIC_FORMAT,
       "-r", MIC_RATE,
+      "-c", "2",
       "--duration", duration_str,
       filename,
       NULL //needs to be null terminated
