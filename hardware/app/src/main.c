@@ -5,86 +5,18 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
-#include "hal/gpio.h"
-#include "hal/i2c.h"
-#include "hal/rotary_encoder.h"
-// #include "hal/audioMixer.h"
-#include "hal/joystick.h"
-#include "hal/micHandler.h"
-#include "hal/wavePlayback.h"
-#include "buttonsFunctionalities.h"
-
-#include "rotaryEncoderFunctionalities.h"
-#include "timeFunction.h"
-#include "lcd_draw.h"
-#include "joystickFunctionalities.h"
-#include "tcp_server.h"
-#include "amplitude_visualizer.h"
-#include "song_metadata.h"
-
-// void audio_amplitude_test() {
-//     WavePlayback_init();
-//     AmplitudeVisualizer_init();
-
-//     WavePlayback_startThread();
-
-//     while(1) {
-//         float amp = WavePlayback_getCurrentAmplitude();
-//         printf("AMP = %f\n", amp);
-//         sleep_for_ms(100);
-//     }
-
-//     AmplitudeVisualizer_cleanup();
-//     WavePlayback_cleanup();
-// }
+#include "shutdown.h"
 
 int main()
 {
     printf("Starting Program.\n");
-    SongMetadata_readMetadataFile("MusicBoard-audio-files/saved_metadata");
-    // audio_amplitude_test();
 
     // Initialize all modules; HAL modules first
-    WavePlayback_init();
-    AmplitudeVisualizer_init();
-    Lcd_draw_init();
-    Gpio_initialize();
-    Rotary_encoder_init();
-    Joystick_init();
-    ButtonFunctionalities_init();
-    JoystickFunction_init();
-    RotaryEncoderFunction_init();
-    // TCP_sendFileToServer("wave-files/nggyucut.wav");
-    while (1 == 1) {
-        
+    Shutdown_init();
+    while (!Shutdown_isShutdownRequested()) {
+
     }
-    RotaryEncoderFunction_cleanup();
-    JoystickFunction_cleanup();
-    ButtonFunctionalities_cleanup();
-    Joystick_cleanup();
-    Rotary_encoder_cleanup();
-    Gpio_cleanup();
-    Lcd_draw_cleanup();
-    AmplitudeVisualizer_cleanup();
-    WavePlayback_cleanup();
-    
-    
-    // start mic then send
-    // micHandler_startRecording(5);
-    // printf("main has finished recording\n");
-
-    // char* file_path = micHandler_getRecordingPath();
-    // TCP_sendFileToServer(file_path);
-    // free(file_path);
-    // printf("Cleaning up modules.\n");
-
-    // sample to get metadata and a specific field
-    // cJSON *metadata = TCP_getMetadata();
-    // cJSON *title = cJSON_GetObjectItem(metadata, "title");
-    // printf("Title: %s\n", title ? title->valuestring : "N/A");
-
-    // Let's do have the program run normally, if 
-
+    Shutdown_cleanup();
 
     printf("Program completely successfully.\n");
     return 0;
