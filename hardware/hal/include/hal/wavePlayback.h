@@ -18,6 +18,9 @@ bool WavePlayback_isPlaying(void);
 bool WavePlayback_isPaused(void);
 float WavePlayback_getCurrentAmplitude(void);
 
+void WavePlayback_jumpForward(void);
+void WavePlayback_jumpBackward(void);
+
 void WavePlayback_init(void);
 void WavePlayback_cleanup(void);
 

@@ -12,6 +12,7 @@
 #include "hal/joystick.h"
 #include "hal/micHandler.h"
 #include "hal/wavePlayback.h"
+#include "buttonsFunctionalities.h"
 
 #include "rotaryEncoderFunctionalities.h"
 #include "timeFunction.h"
@@ -50,6 +51,7 @@ int main()
     Gpio_initialize();
     Rotary_encoder_init();
     Joystick_init();
+    ButtonFunctionalities_init();
     JoystickFunction_init();
     RotaryEncoderFunction_init();
     // TCP_sendFileToServer("wave-files/nggyucut.wav");
@@ -58,6 +60,7 @@ int main()
     }
     RotaryEncoderFunction_cleanup();
     JoystickFunction_cleanup();
+    ButtonFunctionalities_cleanup();
     Joystick_cleanup();
     Rotary_encoder_cleanup();
     Gpio_cleanup();

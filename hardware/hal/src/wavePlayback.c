@@ -17,6 +17,7 @@ static snd_pcm_t *handle = NULL;
 #define SAMPLE_RATE 88200
 #define NUM_CHANNELS 1
 #define SAMPLE_SIZE (sizeof(short)) // bytes per sample
+#define JUMP_DURATION 10
 
 static int volume = 0;
 static float currentAmplitude = 0.0f;
@@ -29,6 +30,10 @@ static bool paused = false;
 static bool playing = false;
 static pthread_t playbackThreadId;
 static pthread_mutex_t audioMutex = PTHREAD_MUTEX_INITIALIZER;
+
+// Audio file currently playing
+static FILE *audioFile = NULL;
+static long currentSampleOffset = 0;
 
 // Playback threading
 void* playbackThread(void* _arg);
@@ -141,25 +146,89 @@ static void WavePlayback_readWaveFileIntoMemory(char *fileName, wavedata_t *pWav
     fclose(file);
 }
 
+void WavePlayback_jumpForward(void)
+{
+    if (!playing || !audioFile) return;
+
+    pthread_mutex_lock(&audioMutex);
+    
+    // Calculate how many samples to skip (10 seconds worth)
+    long samplesToSkip = JUMP_DURATION * SAMPLE_RATE;
+    long newPosition = currentSampleOffset + samplesToSkip;
+    
+    // Get total samples in file
+    fseek(audioFile, 0, SEEK_END);
+    long totalSamples = (ftell(audioFile) - DATA_OFFSET_INTO_WAVE) / SAMPLE_SIZE;
+    fseek(audioFile, currentSampleOffset * SAMPLE_SIZE + DATA_OFFSET_INTO_WAVE, SEEK_SET);
+    
+    // Don't go past end of file
+    if (newPosition > totalSamples) {
+        newPosition = totalSamples;
+    }
+    
+    // Update position
+    currentSampleOffset = newPosition;
+    fseek(audioFile, currentSampleOffset * SAMPLE_SIZE + DATA_OFFSET_INTO_WAVE, SEEK_SET);
+    
+    // For ALSA, we need to clear the buffer to avoid playing old data
+    snd_pcm_drop(handle);
+    snd_pcm_prepare(handle);
+    
+    pthread_mutex_unlock(&audioMutex);
+    
+    printf("Jumped forward 10 seconds\n");
+}
+
+void WavePlayback_jumpBackward(void) {
+    if (!playing || !audioFile) return;
+
+    pthread_mutex_lock(&audioMutex);
+    
+    // Pause playback during seek
+    bool wasPaused = paused;
+    paused = true;
+    
+    // Calculate new position
+    long samplesToRewind = JUMP_DURATION * SAMPLE_RATE;
+    long newPosition = currentSampleOffset - samplesToRewind;
+    newPosition = (newPosition < 0) ? 0 : newPosition;
+    
+    // Update position
+    currentSampleOffset = newPosition;
+    fseek(audioFile, currentSampleOffset * SAMPLE_SIZE + DATA_OFFSET_INTO_WAVE, SEEK_SET);
+    
+    // Reset ALSA
+    snd_pcm_drop(handle);
+    snd_pcm_prepare(handle);
+    
+    // Restore pause state
+    paused = wasPaused;
+    
+    pthread_mutex_unlock(&audioMutex);
+    
+    printf("Jumped backward 10 seconds\n");
+}
+
 // Stream and play the file in chuncks
 static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
 {
     // Open the file to read in binary
-    FILE *file = fopen(fileName, "rb");
-    if (!file) {
+    audioFile = fopen(fileName, "rb");
+    if (!audioFile) {
         fprintf(stderr, "ERROR: Unable to open file %s.\n", fileName);
         exit(EXIT_FAILURE);
     }
 
-    // Skip header information
-    fseek(file, DATA_OFFSET_INTO_WAVE, SEEK_SET);
+    // Skip header information and also current offset
+    fseek(audioFile, currentSampleOffset * SAMPLE_SIZE + DATA_OFFSET_INTO_WAVE, SEEK_SET);
 
     // Define the buffer size, which is the number of samples to read at once.
     const int BUFFER_SIZE = 4096;   // Prev value: 4096
     short buffer[BUFFER_SIZE];
     size_t samplesRead;
 
-    while ((samplesRead = fread(buffer, SAMPLE_SIZE, BUFFER_SIZE, file)) > 0) {
+    while ((samplesRead = fread(buffer, SAMPLE_SIZE, BUFFER_SIZE, audioFile)) > 0) {
+        currentSampleOffset += samplesRead;
         if (paused) {
             snd_pcm_pause(handle, 1); // Pause ALSA playback
             while (paused && playing) {
@@ -168,9 +237,7 @@ static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
             snd_pcm_pause(handle, 0); // Resume ALSA playback
             if (!playing) break; // Exit if stopped while paused
         }
-        if (!playing) {
-            break;
-        }
+        if (!playing) break;
         
         pthread_mutex_lock(&audioMutex);
         float volumeFactor = volume / 100.0f; // convert volume to a scale 0 to 1
@@ -189,7 +256,10 @@ static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
         currentAmplitude = maxAmplitude;
 
         // Write the chunk of audio data to the PCM device.
+        // Need thread or else pcm error will occur if spam-clicking the buttons
+        pthread_mutex_lock(&audioMutex);
         snd_pcm_sframes_t frames = snd_pcm_writei(handle, buffer, samplesRead);
+        pthread_mutex_unlock(&audioMutex);
 
         if (frames < 0) {
             frames = snd_pcm_recover(handle, frames, 0);
@@ -200,7 +270,9 @@ static void WavePlayback_streamFile(snd_pcm_t *handle, char *fileName)
         }
     }
 
-    fclose(file);
+    fclose(audioFile);
+    audioFile = NULL;
+    currentSampleOffset = 0;
 }
 
 float WavePlayback_getCurrentAmplitude(void) {
