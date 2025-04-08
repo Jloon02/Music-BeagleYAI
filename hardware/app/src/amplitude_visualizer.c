@@ -87,8 +87,6 @@ void AmplitudeVisualizer_cleanup(void) {
     // Reset state variables
     isInitialized = false;
     smoothedAmplitude = 0.0f;
-    
-    printf("Amplitude visualizer cleaned up successfully\n");
 }
 
 void* AmplitudeVisualizer_thread(void *arg) {

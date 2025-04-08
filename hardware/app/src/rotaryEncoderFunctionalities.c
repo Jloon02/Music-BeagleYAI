@@ -9,7 +9,7 @@
 #include <unistd.h>
 
 #include "rotaryEncoderFunctionalities.h"
-#include "timeFunction.h"
+#include "hal/timeFunction.h"
 #include "hal/rotary_encoder.h"
 #include "hal/micHandler.h"
 #include "tcp_server.h"

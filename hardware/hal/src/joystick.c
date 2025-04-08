@@ -13,6 +13,7 @@
 #include "hal/gpio.h"
 #include "hal/i2c.h"
 #include "hal/joystick.h"
+#include "hal/timeFunction.h"
 
 // Code taken and adapted from https://opencoursehub.cs.sfu.ca/bfraser/solutions/433/guide-code/i2c_adc_tla2024/tla2024_demo.c
 
@@ -25,6 +26,10 @@
 static bool is_initialized = false;
 struct GpioLine* s_lineButton = NULL;
 static bool prevPressed = false;
+
+// Variables to determine hold time
+static long long buttonPressStartTime = 0;
+static bool isButtonPressed = false;
 
 static int joystick_read_y() {
     int i2c_file_desc = I2C_init_bus(I2CDRV_LINUX_BUS, I2C_DEVICE_ADDRESS_JOYSTICK);
@@ -77,7 +82,7 @@ Direction get_direction() {
     }
 }
 
-bool joystick_button_clicked()
+bool joystick_button_clicked(void)
 {
     int currPush = gpiod_line_get_value((struct gpiod_line*)s_lineButton);
     if (currPush < 0) {
@@ -87,12 +92,34 @@ bool joystick_button_clicked()
 
     // Falling edge detection: button was just pressed (1 → 0)
     if (currPush == 0 && !prevPressed) {
-        printf("Joystick: Button Pressed \n");
+        printf("Joystick: Button Pressed\n");
         prevPressed = true;
+        buttonPressStartTime = get_time_in_ms();
+        isButtonPressed = true;
         return true;
     } else if (currPush == 1) {
-        // Button released, ready for next click
+        // Button released
         prevPressed = false;
+        isButtonPressed = false;
+    }
+    return false;
+}
+
+bool joystick_button_is_pressed(void)
+{
+    int currPush = gpiod_line_get_value((struct gpiod_line*)s_lineButton);
+    return (currPush == 0);  // Active low
+}
+
+bool joystick_button_is_held_for_ms(long long duration_ms)
+{
+    if (!isButtonPressed) return false;
+    
+    long long currentTime = get_time_in_ms();
+    if ((currentTime - buttonPressStartTime) >= duration_ms) {
+        // Reset the hold detection
+        isButtonPressed = false;
+        return true;
     }
     return false;
 }

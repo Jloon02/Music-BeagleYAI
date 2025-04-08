@@ -9,7 +9,7 @@
 #include <unistd.h>     //usleep()
 
 #include "lcd_draw.h"
-#include "timeFunction.h"
+#include "hal/timeFunction.h"
 // #include "hal/audioMixer.h"
 #include "hal/wavePlayback.h"
 #include "hal/rotary_encoder.h"

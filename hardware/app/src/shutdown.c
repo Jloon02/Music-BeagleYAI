@@ -15,7 +15,6 @@
 #include "buttonsFunctionalities.h"
 
 #include "rotaryEncoderFunctionalities.h"
-#include "timeFunction.h"
 #include "lcd_draw.h"
 #include "joystickFunctionalities.h"
 #include "tcp_server.h"

@@ -1,3 +1,6 @@
 {
-    "cmake.sourceDirectory": "/home/nelson/cmpt433/work/Music-BeagleYAI/hardware"
+    "cmake.sourceDirectory": "/home/nelson/cmpt433/work/Music-BeagleYAI/hardware",
+    "files.associations": {
+        "timefunction.h": "c"
+    }
 }

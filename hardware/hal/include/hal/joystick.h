@@ -44,6 +44,10 @@ typedef enum {
 
 void Joystick_init(void);
 void Joystick_cleanup(void);
+
+// Button Functions
 bool joystick_button_clicked(void);
 Direction get_direction(void);
+bool joystick_button_is_pressed(void);
+bool joystick_button_is_held_for_ms(long long duration_ms);
 #endif
