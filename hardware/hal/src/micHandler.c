@@ -12,9 +12,6 @@
 #define MIC_RATE "44100"
 #define DIRECTORY "MusicBoard-audio-files/"
 
-// 
-// int counter=0;
-
 char* micHandler_getRecordingPath(){
   char *filename = malloc(64);
   snprintf(filename, 64, "%sBeagle_recording.wav", DIRECTORY);

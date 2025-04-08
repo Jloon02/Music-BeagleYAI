@@ -37,7 +37,6 @@ static void* joystick_running(void* arg)
         Direction current = get_direction();
         int volume = WavePlayback_getVolume();
         long long currentTime = get_time_in_ms();
-        //printf("current time is: %llu\n buttonHold: %d\n buttonPressedStartTime: %llu\n",currentTime, countingHold, buttonPressStartTime);
         
         if (current == DIR_UP && volume < AUDIOMIXER_MAX_VOLUME) {
             WavePlayback_setVolume(volume + 5);

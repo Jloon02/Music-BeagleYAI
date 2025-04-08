@@ -133,25 +133,3 @@ void* AmplitudeVisualizer_thread(void *arg) {
     freeR5MmapAddr(pR5Base);
     return NULL;
 }
-
-/*
-ADD THIS PART IF CALLING WAVEPLAYBACK THREAD WITH AUDIO FILEPATH
-*/
-
-// Function to start music playback with visualization
-// void AmplitudeVisualizer_start(const char* audioFilePath)
-// {
-//     if (!isRunning) {
-//         AmplitudeVisualizer_init();
-//         WavePlayback_startThread(audioFilePath);
-//     }
-// }
-
-// Function to stop music visualization
-// void AmplitudeVisualizer_stop()
-// {
-//     if (isRunning) {
-//         WavePlayback_stopPlayback();
-//         AmplitudeVisualizer_cleanup();
-//     }
-// }
