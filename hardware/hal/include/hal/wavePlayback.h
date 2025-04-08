@@ -3,6 +3,7 @@
 #define _WAVEPLAYBACK_H_
 
 #include <alsa/asoundlib.h>
+#include <stdbool.h>
 
 #define AUDIOMIXER_MAX_VOLUME 100
 
@@ -11,9 +12,10 @@ typedef struct {
     short *pData;
 } wavedata_t;
 
-void WavePlayback_startThread(const char* path);
 int WavePlayback_getVolume(void);
 void WavePlayback_setVolume(int newVolume);
+bool WavePlayback_isPlaying(void);
+bool WavePlayback_isPaused(void);
 float WavePlayback_getCurrentAmplitude(void);
 
 void WavePlayback_init(void);

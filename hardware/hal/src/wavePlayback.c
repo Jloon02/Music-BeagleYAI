@@ -71,6 +71,15 @@ void WavePlayback_setVolume(int newVolume)
     snd_mixer_close(mixerHandle);
 }
 
+// Return true if a song is currently playing
+bool WavePlayback_isPlaying(void) {
+    return playing;
+}
+
+// Return true if song is paused
+bool WavePlayback_isPaused(void) {
+    return paused;
+}
 
 static snd_pcm_t *WavePlayback_openDevice(void)
 {

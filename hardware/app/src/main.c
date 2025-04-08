@@ -45,6 +45,7 @@ int main()
 
     // Initialize all modules; HAL modules first
     WavePlayback_init();
+    AmplitudeVisualizer_init();
     Lcd_draw_init();
     Gpio_initialize();
     Rotary_encoder_init();
@@ -61,6 +62,7 @@ int main()
     Rotary_encoder_cleanup();
     Gpio_cleanup();
     Lcd_draw_cleanup();
+    AmplitudeVisualizer_cleanup();
     WavePlayback_cleanup();
     
     

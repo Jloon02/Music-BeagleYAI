@@ -19,7 +19,6 @@
 static pthread_t joystickThread;
 static bool isInitialized = false;
 static bool keepRunning = false;
-static bool playSong = false;
 
 static void* joystick_running(void* arg)
 {

@@ -31,7 +31,7 @@ void SongMetadata_readMetadataFile(char* metadata_file_name){
 
     FILE *file = fopen(metadata_file_name, "r");
     if (!file) {
-        printf("Failed to open metadata file");
+        printf("Failed to open metadata file\n");
         return;
     }
 

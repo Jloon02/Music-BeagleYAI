@@ -75,6 +75,7 @@ static void R5_setColour(uint32_t colour) {
 }
 
 // Convert HSV to RGB (for color effects)
+// Source: https://github.com/Inseckto/HSV-to-RGB
 uint32_t hsv_to_rgb(float h, float s, float v) {
     float r, g, b;
     int i = (int)(h * 6);

@@ -26,6 +26,7 @@ static bool isRunning = false;
 #define AMPLITUDE_SCALE_FACTOR 15   // Scale amplitude to LED range
 #define SMOOTHING_FACTOR 0.3       // For smoothing amplitude changes
 #define POLL_INTERVAL_MS 10        // How often to check amplitude (ms)
+#define DECAY_FACTOR 0.9f          // Fading out speed when song is stopped
 
 static float smoothedAmplitude = 0.0f;
 
@@ -71,35 +72,39 @@ void AmplitudeVisualizer_init(void) {
     }
 }
 
-void AmplitudeVisualizer_cleanup(void) {
-    assert(isInitialized);
-    isInitialized = false;
-    isRunning = false;
-    
-    // Clean up resources
-    pthread_join(AmplitudeVisualizer_threadId, NULL);
-}
-
 void* AmplitudeVisualizer_thread(void *arg) {
     (void) arg;
         
     volatile uint8_t* pR5Base = getR5MmapAddr();
     
     while (isRunning) {
-        // Get current amplitude through polling
-        float currentAmplitude = WavePlayback_getCurrentAmplitude();
-        
-        // Apply smoothing
-        smoothedAmplitude = SMOOTHING_FACTOR * currentAmplitude + 
-                          (1.0 - SMOOTHING_FACTOR) * smoothedAmplitude;
-        
-        // Convert smoothed amplitude to LED position (0-15)
-        int ledPosition = (int)(smoothedAmplitude * AMPLITUDE_SCALE_FACTOR);
-        
+        int ledPosition = 0;
+
+        if (WavePlayback_isPlaying() && !WavePlayback_isPaused()) {
+            // Get current amplitude through polling
+            float currentAmplitude = WavePlayback_getCurrentAmplitude();
+            
+            // Apply smoothing
+            smoothedAmplitude = SMOOTHING_FACTOR * currentAmplitude + 
+                                (1.0 - SMOOTHING_FACTOR) * smoothedAmplitude;
+            
+            // Convert smoothed amplitude to LED position (0-15)
+            ledPosition = (int)(smoothedAmplitude * AMPLITUDE_SCALE_FACTOR);
+        } else {
+            // If not playing, gradually decrease the amplitude
+            if (smoothedAmplitude > 0.0f) {
+                smoothedAmplitude *= DECAY_FACTOR;  // Slowly decay the amplitude
+                if (smoothedAmplitude < 0.01f) {    // Small threshold to prevent never reaching 0
+                    smoothedAmplitude = 0.0f;
+                }
+            }
+            ledPosition = (int)(smoothedAmplitude * AMPLITUDE_SCALE_FACTOR);
+        }
+
         // Ensure the value stays within bounds
-        ledPosition = ledPosition < 0 ? 0 : ledPosition;
-        ledPosition = ledPosition > AMPLITUDE_SCALE_FACTOR ? AMPLITUDE_SCALE_FACTOR : ledPosition;
-        
+        if (ledPosition < 0) ledPosition = 0;
+        if (ledPosition > AMPLITUDE_SCALE_FACTOR) ledPosition = AMPLITUDE_SCALE_FACTOR;
+
         // Write the amplitude value to R5 memory
         MEM_UINT32(pR5Base + AMP_OFFSET) = ledPosition;
         

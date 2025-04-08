@@ -103,7 +103,6 @@ bool joystick_button_clicked()
 
 void Joystick_init(void)
 {
-    printf("Joystick - Initializing\n");
     assert(!is_initialized);
     s_lineButton = Gpio_openForEvents(GPIO_CHIP_JOYSTICKBUTTON, GPIO_PUSH_PIN);
     gpiod_line_request_input((struct gpiod_line*)s_lineButton, "Joystick Button");
@@ -114,7 +113,6 @@ void Joystick_init(void)
 void Joystick_cleanup(void)
 {
     // Free any memory, close files, ...
-    printf("Joystick - Cleanup\n");
     assert(is_initialized);
     Gpio_close(s_lineButton);
     is_initialized = false;

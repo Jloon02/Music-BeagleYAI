@@ -9,7 +9,7 @@
 #include "song_metadata.h"
 #include "hal/wavePlayback.h"
 
-#define SERVER_IP "192.168.6.1" // "192.168.145.1" // "192.168.58.1" // "192.168.6.1"  // Server IP address
+#define SERVER_IP "192.168.222.185" // "192.168.145.1" // "192.168.58.1" // "192.168.6.1"  // Server IP address
 #define SERVER_PORT 12345      // Server port
 #define BUFFER_SIZE 4096       // Buffer size for sending data
 #define METADATA_END "<END_OF_METADATA>"
