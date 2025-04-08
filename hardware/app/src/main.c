@@ -12,6 +12,7 @@
 #include "hal/joystick.h"
 #include "hal/micHandler.h"
 #include "hal/wavePlayback.h"
+#include "hal/buttons.h"
 
 #include "rotaryEncoderFunctionalities.h"
 #include "timeFunction.h"
@@ -40,13 +41,14 @@
 int main()
 {
     printf("Starting Program.\n");
-    SongMetadata_readMetadataFile("MusicBoard-audio-files/saved_metadata");
+    // SongMetadata_readMetadataFile("MusicBoard-audio-files/saved_metadata");
     // audio_amplitude_test();
 
     // Initialize all modules; HAL modules first
     WavePlayback_init();
     Lcd_draw_init();
     Gpio_initialize();
+    Buttons_init();
     Rotary_encoder_init();
     Joystick_init();
     JoystickFunction_init();
@@ -59,6 +61,7 @@ int main()
     JoystickFunction_cleanup();
     Joystick_cleanup();
     Rotary_encoder_cleanup();
+    Buttons_cleanup();
     Gpio_cleanup();
     Lcd_draw_cleanup();
     WavePlayback_cleanup();
