@@ -18,6 +18,7 @@
 #include "GUI_BMP.h"
 #include "tcp_server.h"
 #include "song_metadata.h"
+#include "rotaryEncoderFunctionalities.h"
 
 #include <arpa/inet.h>
 #include <cjson/cJSON.h>
@@ -38,6 +39,7 @@ static const int volumeY = 220;
 
 // Screen one
 static int current_volume = 80;
+static int current_record = 5;
 
 // Song Information
 static const char* DEFAULT_NA_VALUE = "N/A";
@@ -104,22 +106,25 @@ void Lcd_draw_songScreen(void)
 
     // // Display Spotify URL
     char spotifyBuffer[url_buffer_size];
-    snprintf(spotifyBuffer, sizeof(spotifyBuffer), "Spotify URL:%s", spotify_url);
+    truncate_to_fit(spotifyBuffer, sizeof(spotifyBuffer), "Spotify URL:", spotify_url, 8, LCD_1IN54_WIDTH);
     Paint_DrawString_EN(0, y, spotifyBuffer, &Font12, WHITE, BLACK);
     y += 40;
 
     // Display Apple Music URL
     char appleBuffer[url_buffer_size];
-    snprintf(appleBuffer, sizeof(appleBuffer), "Apple URL:%s", apple_url);
+    truncate_to_fit(appleBuffer, sizeof(appleBuffer), "Apple URL:", apple_url, 8, LCD_1IN54_WIDTH);
     Paint_DrawString_EN(0, y, appleBuffer, &Font12, WHITE, BLACK);
     y += 40;
 
-
-    // // Display Volume
+    // Display Volume
     char volumeBuffer[buffer_size];
     snprintf(volumeBuffer, sizeof(volumeBuffer), "Volume:%d ", current_volume);
     Paint_DrawString_EN(0, volumeY, volumeBuffer, &Font16, WHITE, BLACK);
 
+    // Display recording length
+    char recordBuffer[buffer_size];
+    snprintf(recordBuffer, sizeof(recordBuffer), "Record:%d", current_record);
+    Paint_DrawString_EN(LCD_1IN54_WIDTH / 2, volumeY, recordBuffer, &Font16, WHITE, BLACK);
 
     LCD_1IN54_DisplayWindows(0, 0, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, s_fb);
 }
@@ -131,8 +136,18 @@ static void lcd_draw_volume(void)
     snprintf(volumeBuffer, sizeof(volumeBuffer), "Volume:%d ", current_volume);
     Paint_DrawString_EN(0, volumeY, volumeBuffer, &Font16, WHITE, BLACK);
 
-    LCD_1IN54_DisplayWindows(0, volumeY, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, s_fb);
+    LCD_1IN54_DisplayWindows(0, volumeY, LCD_1IN54_WIDTH / 2, LCD_1IN54_HEIGHT, s_fb);
 
+}
+
+static void lcd_draw_record(void)
+{
+    Paint_Clear(WHITE);
+    char recordBuffer[buffer_size];
+    snprintf(recordBuffer, sizeof(recordBuffer), "Record:%d", current_record);
+    Paint_DrawString_EN(LCD_1IN54_WIDTH / 2, volumeY, recordBuffer, &Font16, WHITE, BLACK);
+
+    LCD_1IN54_DisplayWindows(LCD_1IN54_WIDTH / 2, volumeY, LCD_1IN54_WIDTH, LCD_1IN54_HEIGHT, s_fb);
 }
 
 int Lcd_get_screen(void)
@@ -207,7 +222,6 @@ static bool retrieveUpdateMetadata(void)
         } else {
             temp_apple_url = strdup("N/A");
         }
-
         // Compare the song, artist, album to see if we should update.
         if (strcmp(song_name, temp_song_name) != 0 || 
             strcmp(artist_name, temp_artist_name) != 0  ||
@@ -266,6 +280,11 @@ static void* lcdUpdateFunction(void* arg)
         if (current_volume != temp_volume) {
             current_volume = temp_volume;
             lcd_draw_volume();
+        }
+        int temp_record = RotaryEncoderFunction_getDuration();
+        if (current_record != temp_record) {
+            current_record = temp_record;
+            lcd_draw_record();
         }
 
         if (retrieveUpdateMetadata()) {

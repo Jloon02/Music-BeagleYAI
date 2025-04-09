@@ -6,6 +6,7 @@
 #ifndef _ROTARYENCODERFUNCTION_H_
 #define _ROTARYENCODERFUNCTION_H_
 
+int RotaryEncoderFunction_getDuration(void);
 void RotaryEncoderFunction_init(void);
 void RotaryEncoderFunction_cleanup(void);
 

@@ -19,11 +19,20 @@
 #define MAX_RECORDING_DURATION 30
 #define MIN_RECORDING_DURATION 2
 
+static pthread_mutex_t duration_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_t rotaryEncoderThread;
 static bool isInitialized = false;
 static bool keepRunning = false;
 
 static int duration = 5; // Default recording duration is 5 seconds
+
+int RotaryEncoderFunction_getDuration(void)
+{
+    pthread_mutex_lock(&duration_mutex);
+    int temp = duration;
+    pthread_mutex_unlock(&duration_mutex);
+    return temp;
+}
 
 static void sendRecordingToServer() {
     char* file_path = micHandler_getRecordingPath();
@@ -53,6 +62,7 @@ static void* rotaryEncoderThreadFunc(void* arg)
         // Check for rotaryencoder turns
         bool hasTurnedCW = Rotary_encoder_isCW();
         bool hasTurnedCCW = Rotary_encoder_isCCW();
+        pthread_mutex_lock(&duration_mutex);
         if(hasTurnedCW && duration < MAX_RECORDING_DURATION) {
             duration += 1;
             printf("Recording duration: %d seconds\n", duration);
@@ -60,6 +70,7 @@ static void* rotaryEncoderThreadFunc(void* arg)
             duration -= 1;
             printf("Recording duration: %d seconds\n", duration);
         }
+        pthread_mutex_unlock(&duration_mutex);
 
         sleep_for_ms(50);
     }
