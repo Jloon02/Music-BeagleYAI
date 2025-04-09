@@ -284,7 +284,7 @@ void WavePlayback_startThread(const char* path)
 {
     if (!playing) {
         playing = true;
-        file_path = path;
+        file_path = strdup(path);
         pthread_create(&playbackThreadId, NULL, playbackThread, NULL);
     }
 }
@@ -296,6 +296,12 @@ void WavePlayback_stopPlayback(void)
         playing = false;
         paused = false;
         pthread_join(playbackThreadId, NULL);
+
+        // Free the memory
+        if (file_path && *file_path != '\0') {
+            free(file_path);
+            file_path = "";
+        }
         
         // Drain and prepare the device for next use
         if (handle) {

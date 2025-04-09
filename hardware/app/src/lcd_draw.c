@@ -40,12 +40,13 @@ static const int volumeY = 220;
 static int current_volume = 80;
 
 // Song Information
-static char* song_name      = "NA";
-static char* artist_name    = "NA"; 
-static char* album_name     = "NA";
-static char* release_date   = "NA";
-static char* spotify_url    = "NA";
-static char* apple_url      = "NA"; 
+static const char* DEFAULT_NA_VALUE = "N/A";
+static char* song_name      = "N/A";
+static char* artist_name    = "N/A"; 
+static char* album_name     = "N/A";
+static char* release_date   = "N/A";
+static char* spotify_url    = "N/A";
+static char* apple_url      = "N/A";
 static pthread_mutex_t screen_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Function to help truncate strings that won't fit in the buffer
@@ -212,22 +213,22 @@ static bool retrieveUpdateMetadata(void)
             strcmp(artist_name, temp_artist_name) != 0  ||
             strcmp(album_name, temp_album_name) != 0) {
             // Free the previous song_name memory if it was dynamically allocated
-            if (song_name && song_name != "NA") {
+            if (song_name && strcmp(song_name, DEFAULT_NA_VALUE) != 0) {
                 free(song_name);
             }
-            if (artist_name && artist_name != "NA") {
+            if (artist_name && strcmp(artist_name, DEFAULT_NA_VALUE) != 0) {
                 free(artist_name);
             }
-            if (album_name && album_name != "NA") {
+            if (album_name && strcmp(album_name, DEFAULT_NA_VALUE) != 0) {
                 free(album_name);
             }
-            if (release_date && release_date != "NA") {
+            if (release_date && strcmp(release_date, DEFAULT_NA_VALUE) != 0) {
                 free(release_date);
             }
-            if (spotify_url && spotify_url != "NA") {
+            if (spotify_url && strcmp(spotify_url, DEFAULT_NA_VALUE) != 0) {
                 free(spotify_url);
             }
-            if (apple_url && apple_url != "NA") {
+            if (apple_url && strcmp(apple_url, DEFAULT_NA_VALUE) != 0) {
                 free(apple_url);
             }
 
