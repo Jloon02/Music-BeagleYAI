@@ -14,7 +14,7 @@ static snd_pcm_t *handle = NULL;
 #define DEFAULT_VOLUME 80
 
 #define DATA_OFFSET_INTO_WAVE 44
-#define SAMPLE_RATE 96000
+#define SAMPLE_RATE 88200 //96000
 #define NUM_CHANNELS 1
 #define SAMPLE_SIZE (sizeof(short)) // bytes per sample
 #define JUMP_DURATION 10

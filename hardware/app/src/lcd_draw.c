@@ -76,7 +76,6 @@ static void truncate_to_fit(char* dest, size_t dest_size, const char* label, con
 
 void Lcd_draw_songScreen(void)
 {
-    assert (isInitialized);
     Paint_Clear(WHITE);
 
     int y = 0;
