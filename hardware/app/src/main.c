@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include "shutdown.h"
+#include "hal/timeFunction.h"
 
 int main()
 {
@@ -14,7 +15,7 @@ int main()
     // Initialize all modules; HAL modules first
     Shutdown_init();
     while (!Shutdown_isShutdownRequested()) {
-
+        sleep_for_ms(100);
     }
     Shutdown_cleanup();
 

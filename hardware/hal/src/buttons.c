@@ -72,7 +72,6 @@ static void buttons_handle_click(int currPush, int* prevPush, bool* click) {
 
 static void* buttons_running(void* arg)
 {
-    assert(isInitialized);
     (void)arg;
 
     int prevRight = gpiod_line_get_value((struct gpiod_line*)s_line_right);

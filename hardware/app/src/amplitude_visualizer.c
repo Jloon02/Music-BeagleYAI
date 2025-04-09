@@ -128,6 +128,9 @@ void* AmplitudeVisualizer_thread(void *arg) {
         // Small delay before next poll
         usleep(POLL_INTERVAL_MS * 1000);
     }
+
+    // Turn off all led
+    MEM_UINT32(pR5Base + AMP_OFFSET) = 0;
     
     // Clean up when exiting
     freeR5MmapAddr(pR5Base);

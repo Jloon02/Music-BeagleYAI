@@ -318,6 +318,7 @@ void WavePlayback_cleanup(void)
 {
     assert(isInitialized);
     isInitialized = false;
+    playing = false;
 
     pthread_join(playbackThreadId, NULL);
 
