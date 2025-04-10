@@ -118,9 +118,5 @@ void loadMetadata(){
             "MusicBoard-audio-files/%s-%s.wav", title_str, artist_str);
 
         WavePlayback_stopPlayback();
-		// cJSON *title = cJSON_GetObjectItem(current_metadata, "title");
-		// if (cJSON_IsString(title)) {
-		// 	printf("Song Title: %s\n", title->valuestring);
-		// }
     }
 }
