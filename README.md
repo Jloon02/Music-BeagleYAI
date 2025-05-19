@@ -2,6 +2,8 @@
 
 Music-BeagleYAI is an embedded music recognition and synthesis project using the BeagleY-AI board and a Python backend. It enables users to record audio clips, identify songs using the AudD API, download the full track from YouTube, and play it back with real-time LED visualizations and interactive hardware controls. It combines audio preocessing, machine learning, embedded system, and visual feedback into an interactive music experience.
 
+<img src="Board.jpg" alt="Preview" style="max-width: 100%; height: auto;" width="200"/>
+
 ## Features
 
 - 🎙️ **Audio Recognition**: Record audio and identify the song using the [AudD API](https://audd.io/).
